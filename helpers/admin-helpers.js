@@ -3,7 +3,7 @@ var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 
 module.exports={
-    // let adminUpdate = {}
+    
 
     
     doAdminLogin:(adminData)=>{
@@ -16,7 +16,7 @@ module.exports={
             
             // console.log("db pw-----------" + admin.Password)
             // console.log("web pw-----------" + adminData.Password)
-            let newPassword =await bcrypt.hash(admin.Password,10)
+            // let newPassword =await bcrypt.hash(admin.Password,10)
             // console.log("bcrypted..." +newPassword)
             // let adminDetails = await db.get().collection(collection.ADMIN_COLLECTION).updateOne({Password:"abcd"},{$set:{Password:newPassword}})
 

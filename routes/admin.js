@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   //   res.render('admin/admin-login',{'loginErr':req.session.adminLogginErr,})
   //   req.session.adminLogginErr = false
   // }
-  res.render('admin/admin-login',{admin:true});
+  res.render('admin/admin-login');
 
 });
 router.post('/', function(req,res){
@@ -25,8 +25,8 @@ router.post('/', function(req,res){
   .then((response)=>{    
   // // console.log(response)
   if(response.status){
-  //   req.session.admin = response.admin
-  //   req.session.admin.loggedIn = true
+    req.session.admin = response.admin
+    req.session.admin.loggedIn = true
     res.redirect('/admin/admin-home')
 
   }else{
@@ -43,7 +43,13 @@ router.post('/', function(req,res){
 //   res.redirect('/')
 // })
 router.get('/admin-home', (req,res)=>{
-  res.render('admin/admin-home',{admin:true})
+  let admin = req.session.admin
+  console.log(admin)
+  res.render('admin/admin-home',{admin:true, admin})
+})  
+router.get('/logout',(req,res)=>{
+  req.session.admin = null
+  res.redirect('/')
 })
 
 module.exports = router;
