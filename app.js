@@ -3,10 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var hbs = require('express-handlebars');
+
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
+var hbs = require('express-handlebars');
+var db = require('./config/connection');
+// var session = require('express-session');
 
 var app = express();
 
@@ -26,6 +29,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(session({secret:"Key",cookie:{maxAge:600000}}));
+db.connect((err)=>{
+  if(err){
+    console.log("connection error"+err)
+  }
+  else{
+    console.log("database connected to the port 27017")
+  }
+})
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
