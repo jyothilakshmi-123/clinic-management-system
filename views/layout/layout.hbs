@@ -14,6 +14,23 @@
 </head>
 
 <body>
+    <header>
+        <div class="container">
+            <div class="row pt-5 mb-5">
+                <div class="col-mb-4 mr-5 pr-5">
+                    <a class="  font-weight-bold" style=" color: rgb(15, 201, 201);" href="#"><i class="fa fa-heartbeat mr-3 fa-4x" ></i>Dr CARE</a>
+                </div>
+                <div class="col-mb-4 ml-5 mr-5 pr-5 ">
+                    <p ><i class="fa fa-fax mr-1 fa-1x border border-info p-1" ></i>Free Call +1 234 456 78910</p>
+                    <p class="text-secondary">Call Us Now 24/7 Customer Support</p>
+                </div>
+                <div class="col-mb-4 ml-5 pl-5">
+                    <p ><i class="fa fa-location-arrow mr-1 border border-info p-1 " aria-hidden="true"></i>Our Location</p>
+                    <p class="text-secondary">198 West 21th Street, Suite 721 New York NY 10016</p>
+                </div>
+            </div>
+        </div>
+    </header>
     {{#if admin}}
         {{>admin-header}}
     {{else if user}}
@@ -21,7 +38,7 @@
     {{else if dr}}
         {{>dr-header}}
     {{else}}
-        {{>home}}
+        {{>home-header}}
     {{/if}}
     {{{body}}}
     <!-- Optional JavaScript -->
