@@ -8,29 +8,33 @@ router.get('/', function(req, res, next) {
   console.log("....................... in get" + req.body)
  
   
-  // if(req.session.admin){
-  //   res.redirect("admin/admin-login")
-  // }else{
-  //   res.render('admin/admin-login',{'loginErr':req.session.adminLogginErr,})
-  //   req.session.adminLogginErr = false
-  // }
-  res.render('admin/admin-login');
+  if(req.session.admin){
+    res.redirect("/admin/admin-home")
+  }else{
+    // res.render('admin/admin-login');
 
+    res.render('admin/admin-login',{'LoginErr':req.session.adminLogginErr})
+    req.session.adminLogginErr = false
+  }
+  
 });
 router.post('/', function(req,res){
+  var email = req.body.Email;
+  var password = req.body.Password;
+  console.log("User name = "+email+", password = "+password);
   // console.log(req.body)
-  // console.log(req.body.Password)
+ 
   
   adminHelpers.doAdminLogin(req.body)
   .then((response)=>{    
-  // // console.log(response)
+  // console.log("....................... in post:"+response.body)
   if(response.status){
     req.session.admin = response.admin
     req.session.admin.loggedIn = true
     res.redirect('/admin/admin-home')
 
   }else{
-  //   req.session.adminLogginErr = "Invalid username or password" 
+    req.session.adminLogginErr = "Invalid username or password" 
     res.redirect('/admin')
   }
 

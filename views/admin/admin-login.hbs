@@ -1,12 +1,8 @@
 <div class="section">
-    <div class="container">
+    <div class="container mb-5 pb-5 ">
         <div class="col-md-6 m-auto">
             <form action="/admin" method="post" class="mt-5">
-                {{!-- {{#if loginErr}}
-                    <div >
-                        <button class="btn btn-danger">{{loginErr}}</button>
-                    </div>
-                {{/if}} --}}
+               
                 <h2 class="text-center">Login</h2>
                 
                 <div class="form-group">
@@ -17,7 +13,13 @@
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" placeholder="Enter password" name="Password">
                 </div>
-               <button type="submit" class="btn btn-primary float-right">Submit</button>
+                 {{#if LoginErr}}
+                    <div >
+                        <p class="text-danger">{{LoginErr}}</p>
+                        {{!-- <button class="btn btn-danger"></button> --}}
+                    </div>
+                {{/if}}
+               <button type="submit" class="btn btn-primary float-right ">Submit</button>
             </form>
         </div>
     </div>

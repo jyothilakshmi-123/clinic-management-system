@@ -5,7 +5,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand  font-weight-bold" href="#">HEALTH CARE CENTRE</a>
+                {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a> --}}
+                <div class="container-fluid">
+                <ul class="nav nav-tabs nav-justified  ">
+                    <li class="nav-item mr-1  active ">
+                        <a href="" class="nav-link bg-info text-white "data-toggle="tab">Dashboard</a>
+                    </li>
+                    <li class="nav-item mr-1 active ">
+                        <a href="" class="nav-link bg-info text-white "data-toggle="tab">Doctors</a>
+                    </li>
+                    <li class="nav-item mr-1 active">
+                        <a href="" class="nav-link bg-info text-white "data-toggle="tab">Patients</a>
+                    </li>
+                    <li class="nav-item mr-1 active">
+                        <a href="" class="nav-link bg-info text-white "data-toggle="tab">Appointments</a>
+                    </li>
+                </ul>
+                </div>
                 {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -17,8 +33,8 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul> --}}
-                <div class="dropdown ml-auto mr-5">
-                    <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton"
+                <div class="dropdown ml-auto  ">
+                    <button class="btn btn-secondary dropdown-toggle mr-5 " type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{#if admin}}
                             {{admin.Name}}
