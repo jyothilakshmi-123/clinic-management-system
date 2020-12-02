@@ -2,8 +2,16 @@ const { response } = require('express');
 var express = require('express');
 var router = express.Router();
 const adminHelpers = require('../helpers/admin-helpers');
+const doctorHelpers = require('../helpers/doctor-helpers');
 
-/* GET users listing. */
+// const verifyLogin = (req,res,next)=>{
+//   if(req.session.admin.loggedIn){
+//     next()
+//   }
+//   else{
+//     res.redirect('/admin')
+//   }
+// }
 router.get('/', function(req, res, next) {
   console.log("....................... in get" + req.body)
  
@@ -49,11 +57,39 @@ router.post('/', function(req,res){
 router.get('/admin-home', (req,res)=>{
   let admin = req.session.admin
   console.log(admin)
-  res.render('admin/admin-home',{admin:true, admin})
+  doctorHelpers.getDoctorsList().then((doctorsList)=>{
+    console.log(doctorsList)
+    res.render('admin/admin-home',{admin:true, admin, doctorsList})
+  })
+ 
 })  
 router.get('/logout',(req,res)=>{
   req.session.admin = null
   res.redirect('/')
 })
+router.get('/add-doctor',(req,res)=>{ 
+  res.render('admin/add-doctor',{admin:true})        
+})
+router.post('/add-doctor',(req,res)=>{
+  console.log(req.body)
+  console.log(req.files.Image)
+  doctorHelpers.addDoctor(req.body).then((id)=>{
+    console.log(id)
+    let image = req.files.Image
+    image.mv('./public/doctor-images/'+id+'.jpg',(err,done)=>{
+      if(!err){
+        // res.render('admin/add-doctor')  
+        res.redirect('/admin/admin-home')
+      }
+      else{
+        console.log(err)
+      }
+    })
+    
 
-module.exports = router;
+  })
+
+})
+
+module.exports = router;   
+     
