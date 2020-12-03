@@ -57,23 +57,28 @@ router.post('/', function(req,res){
 router.get('/admin-home', (req,res)=>{
   let admin = req.session.admin
   console.log(admin)
+  
   doctorHelpers.getDoctorsList().then((doctorsList)=>{
     console.log(doctorsList)
-    res.render('admin/admin-home',{admin:true, admin, doctorsList})
+    console.log(doctorsList.Specilised)
+    // if(doctorsList.status)
+    res.render('admin/admin-home',{ admin,  doctorsList})
   })
  
 })  
 router.get('/logout',(req,res)=>{
   req.session.admin = null
+  console.log(req.session.admin)
   res.redirect('/')
 })
 router.get('/add-doctor',(req,res)=>{ 
-  res.render('admin/add-doctor',{admin:true})        
+  // let admin = req.session.admin
+  res.render('admin/add-doctor')        
 })
 router.post('/add-doctor',(req,res)=>{
   console.log(req.body)
   console.log(req.files.Image)
-  doctorHelpers.addDoctor(req.body).then((id)=>{
+  doctorHelpers.addDoctor(req.body).then((id)=>{  
     console.log(id)
     let image = req.files.Image
     image.mv('./public/doctor-images/'+id+'.jpg',(err,done)=>{
@@ -81,12 +86,22 @@ router.post('/add-doctor',(req,res)=>{
         // res.render('admin/add-doctor')  
         res.redirect('/admin/admin-home')
       }
-      else{
+      else{ 
         console.log(err)
       }
     })
     
 
+  })
+
+})
+
+router.post('/delete-doctor',(req,res,next)=>{
+  console.log(req.body)   
+ 
+  
+  doctorHelpers.deleteDoctor(req.body).then((response)=>{
+    res.json(response)  
   })
 
 })

@@ -1,5 +1,6 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
+var objectId = require('mongodb').ObjectID
 
 
 module.exports = {
@@ -18,6 +19,19 @@ module.exports = {
         return new Promise(async (resolve,reject)=>{
             let doctorsList =await db.get().collection(collection.DOCTOR_COLLECTIION).find().toArray()
             resolve(doctorsList)
+        })
+
+    },
+    deleteDoctor:(drId)=>{
+        console.log(drId)
+        return new Promise(async (resolve,reject)=>{
+            await db.get().collection(collection.DOCTOR_COLLECTIION).updateOne({_id:objectId(drId.dr)},{
+                $set:{
+                    Status:"Deleted"
+                }
+            }).then((response)=>{
+                resolve()
+            })
         })
 
     }

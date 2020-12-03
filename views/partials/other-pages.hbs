@@ -6,7 +6,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a> --}}
-                <div class="container-fluid">
+                {{!-- <div class="container-fluid">
                 <ul class="nav nav-tabs nav-justified  ">
                     <li class="nav-item mr-1  active ">
                         
@@ -22,7 +22,7 @@
                         <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"onclick="admin(event,'Appointments')" data-toggle="tab">Appointments</a>
                     </li>
                 </ul>
-                </div>
+                </div> --}}
                 {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
@@ -34,11 +34,13 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li>
                 </ul> --}}
-                <div class="dropdown ml-auto  ">
+                {{!-- <div class="dropdown ml-auto  ">
                     <button class="btn btn-secondary dropdown-toggle mr-5 " type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{#if admin}}
                             {{admin.Name}}
+                        {{else}}
+                            account
                             
                         {{/if}}
                         
@@ -53,7 +55,7 @@
                         
                         
                         
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </nav>

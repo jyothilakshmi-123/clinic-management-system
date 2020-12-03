@@ -7,9 +7,13 @@ var logger = require('morgan');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
-var hbs = require('express-handlebars');
 var db = require('./config/connection');
 var session = require('express-session');
+var hbs = require('express-handlebars');
+// const H = require('just-handlebars-helpers');
+
+
+
 
 var app = express();
 var fileUpload = require('express-fileupload');
@@ -25,6 +29,12 @@ app.engine( 'hbs', hbs( {
   layoutsDir: __dirname + '/views/layout/',
   partialsDir: __dirname + '/views/partials/'
 }));
+// var H = hbs.create({
+//   helpers:{
+//     ifEquals: function(arg1, arg2, options) {
+//     return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+//   }}
+// })
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,7 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"Key",cookie:{maxAge:600000}}));
+app.use(session({secret:"Key",cookie:{maxAge:60000}}));
 
 db.connect((err)=>{
   if(err){
@@ -61,5 +71,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+// Handlebars.registerHelper('ifEqual', function(attribute, value) {
+//   if (attribute == value) {
+//       return options.fn(this);
+//   }
+//   else {
+//       return options.inverse(this);  
+//   }
+// });
+
 
 module.exports = app;
