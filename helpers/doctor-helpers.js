@@ -22,6 +22,14 @@ module.exports = {
         })
 
     },
+    getActiveDoctorsList:()=>{
+        return new Promise(async (resolve,reject)=>{
+            var activeDoctors = {Status : "Active" }
+            let doctorsList =await db.get().collection(collection.DOCTOR_COLLECTIION).find(activeDoctors).toArray()
+            resolve(doctorsList)
+        })
+
+    },
     deleteDoctor:(drId)=>{
         console.log(drId)
         return new Promise(async (resolve,reject)=>{

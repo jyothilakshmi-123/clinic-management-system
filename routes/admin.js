@@ -58,7 +58,14 @@ router.get('/admin-home', (req,res)=>{
   let admin = req.session.admin
   console.log(admin)
   
-  doctorHelpers.getDoctorsList().then((doctorsList)=>{
+  // doctorHelpers.getDoctorsList().then((doctorsList)=>{
+  //   console.log(doctorsList)
+  //   console.log(doctorsList.Specilised)
+  //   // if(doctorsList.status)
+  //   res.render('admin/admin-home',{ admin,  doctorsList})
+  // })
+
+  doctorHelpers.getActiveDoctorsList().then((doctorsList)=>{
     console.log(doctorsList)
     console.log(doctorsList.Specilised)
     // if(doctorsList.status)
@@ -98,10 +105,9 @@ router.post('/add-doctor',(req,res)=>{
 
 router.post('/delete-doctor',(req,res,next)=>{
   console.log(req.body)   
- 
-  
   doctorHelpers.deleteDoctor(req.body).then((response)=>{
-    res.json(response)  
+    // res.json(response)  
+    res.redirect('/admin/admin-home')
   })
 
 })
