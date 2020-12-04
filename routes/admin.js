@@ -111,6 +111,22 @@ router.post('/delete-doctor',(req,res,next)=>{
   })
 
 })
+router.get('/edit-doctor/:id', async(req,res)=>{
+  let doctor =await doctorHelpers.getDoctorsList(req.params.id)
+  console.log(doctor)
+  res.render('admin/edit-doctor',{doctor})
+})
+router.post('/edit-doctor/:id',(req,res)=>{
+  console.log(req.params.id)
+  let id = req.params.id
+  doctorHelpers.updateDoctor(req.params.id,req.body).then(()=>{
+    res.redirect('/admin/admin-home')
+    if(req.files.image){
+      let image = req.files.image
+      image.mv('./public/doctor-images/'+id+'.jpg')
+    }
+  })
+})
 
 module.exports = router;   
      

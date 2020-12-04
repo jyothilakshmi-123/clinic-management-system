@@ -15,10 +15,12 @@ module.exports = {
 
 
     },
-    getDoctorsList:()=>{
-        return new Promise(async (resolve,reject)=>{
-            let doctorsList =await db.get().collection(collection.DOCTOR_COLLECTIION).find().toArray()
-            resolve(doctorsList)
+    getDoctorsList:(drId)=>{
+        return new Promise( (resolve,reject)=>{
+             db.get().collection(collection.DOCTOR_COLLECTIION).findOne({_id:objectId(drId)}).then((doctorList )=>{
+                resolve(doctorList)
+            })
+            
         })
 
     },
@@ -42,5 +44,22 @@ module.exports = {
             })
         })
 
+    },
+    updateDoctor:(drId,drDetails)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.DOCTOR_COLLECTIION)
+            .updateOne({_id:objectId(drId)},{
+                $set:{
+                    drName: drDetails.drName,
+                    drSpecialised:drDetails.drSpecialised,
+                    drSpeciality : drDetails.drSpeciality,
+                    drPassword:drDetails.drPassword
+                }
+
+            }).then((response)=>{
+                console.log(response)
+                resolve()
+            })
+        })
     }
 }
