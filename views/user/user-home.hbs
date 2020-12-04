@@ -1,5 +1,5 @@
 <section class="banner">
-    <div class="">
+    <div class="" >
         <div class="container-fluid">
             <div class="row">
                 <div class="header ">
@@ -17,7 +17,7 @@
         </div>
     </div>
 </section>
-<section class="doctors">
+<section class="doctors " >
     <div class="container-fluid bg-light" style="height: 700px;">
         <div class=" text-center  my-3 py-5">
             <h1>Our Doctors</h1>
@@ -25,35 +25,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card mb-5 border-info border- rounded">
+                    <div class="card border-info ">
                         <div class="card-body text-center">
-                            <img class="img-fluid rounded-circle w-50 mb-3 border "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
+                            <img class="card-image rounded-circle  mb-3 border "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
                             <h3>Dr.Susan Philip</h3>
                             <h5>(BDS)</h5>
                             <p>Oral and Maxillofacial Surgeon</p>
-                            <button type="button" class="btn btn-info mt-3 mb-3">Make an Appointment</button>
+                            <button type="button" class=" mt-3 mb-3 p-2" style="background-color: rgb(70, 171, 202); border: 2px;color: white;  border-radius: 30px; "">Make an Appointment</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-5 border-info border- rounded">
+                    <div class="card border-info ">
                         <div class="card-body text-center">
-                            <img class="img-fluid rounded-circle w-50 mb-3 border "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
+                            <img class=" rounded-circle  mb-3 border card-image "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
                             <h3>Dr.Susan Philip</h3>
                             <h5>(BDS)</h5>
                             <p>Oral and Maxillofacial Surgeon</p>
-                            <button type="button" class="btn btn-info  mt-3 mb-3">Make an Appointment</button>
+                            <button type="button" class="  mt-3 mb-3 p-2" style="background-color: rgb(70, 171, 202); color: white;  border-radius: 30px; border: 1px;">Make an Appointment</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-5 border-info border- rounded">
+                    <div class="card   ">
                         <div class="card-body text-center">
-                            <img class="img-fluid rounded-circle border w-50 h-10 mb-3 "  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
+                            <img class="   mb-3 card-image border"   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI-vYKLI6yLM7csXJn6Kt-n0shOeYcVs1Wqw&usqp=CAU" alt="">
                             <h3>Dr.Susan Philip</h3>
                             <h5>(BDS)</h5>
                             <p>Oral and Maxillofacial Surgeon</p>
-                            <button type="button" class="btn btn-info mt-3 mb-3">Make an Appointment</button>
+                            <button type="button" class=" mt-3 mb-3 p-2" 
+                            style="background-color: rgb(70, 171, 202);border: 1px; color: white;  border-radius: 30px; ">Make an Appointment</button>
                         </div>
                     </div>
                 </div>
@@ -110,6 +111,27 @@
         background-repeat: no-repeat;
         background-position:top center;
 
+    }
+    .card{
+        box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        overflow: hidden;
+        border-radius: 20px;
+    }
+    .card:hover{
+        background-color: rgb(167, 240, 189);
+        color: white;
+    }
+    .card-image{
+        position: relative;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        z-index: 1;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        {{!-- border: 2px solid rgb(19, 17, 17); --}}
+        padding-top: -80px;
     }
     
 

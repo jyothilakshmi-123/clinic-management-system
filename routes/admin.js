@@ -94,7 +94,7 @@ router.post('/add-doctor',(req,res)=>{
   console.log(req.files.Image)
   doctorHelpers.addDoctor(req.body).then((id)=>{  
     console.log(id)
-    let image = req.files.Image
+    let image = req.files.Image 
     image.mv('./public/doctor-images/'+id+'.jpg',(err,done)=>{
       if(!err){
         // res.render('admin/add-doctor')  
