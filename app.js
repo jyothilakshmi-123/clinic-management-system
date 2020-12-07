@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config()
+const passport = require('passport')
 
 
 var userRouter = require('./routes/user');
@@ -42,6 +44,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
 app.use(session({secret:"Key",cookie:{maxAge:6000000}}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 db.connect((err)=>{
   if(err){

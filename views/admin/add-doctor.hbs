@@ -1,7 +1,7 @@
 <div class="section">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-6 m-auto">
                 <h2 class="text-center mt-3">Add Doctor</h2>
                 <form class="mb-5 mt-3" action="/admin/add-doctor" method="POST" enctype="multipart/form-data">
 
@@ -24,7 +24,7 @@
                     <div class="form-group">
                         {{!-- <label for="">Image</label> --}}
                         {{!-- <input type="file" name="Image" id="upphoto" class="form-control-file"> --}}
-                        <input type="file" id="upphoto" style="display:none; "  name="Image">
+                        <input type="file" id="upphoto" style="display:none; " name="Image" >
                         <label for="upphoto">
                             <div class="inputLabel">
                                 click here to upload an image
@@ -32,16 +32,17 @@
                         </label>
                     </div>
                     <div>
-                        <img id="croppedImg" style="border:5px solid #000; margin:auto;">
+                        <input id="croppedImg" name="croppedImg" style="border:1px solid #000; margin:auto;">
                     </div>
                     <button type="submit" class="btn btn-success mt-3">Submit</button>
                     <input type="hidden" id="Status" name="Status" value="Active">
+                    {{!-- <input type="hidden" id="croppedImg" style="display:none; " name="croppedImg" > --}}
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="cropHolder">
                     <div id="cropWrapper">
-                        <img id="inputImage" src="/images/face.jpg">
+                        <img id="inputImage" src="/images/man-1.jpg">
                     </div>
                     <div class="cropInputs">
                         <div class="inputtools">
@@ -106,6 +107,7 @@
                         }, 1000);
 
                     };
+                    var croppedImageDataURL = 
                     reader.readAsDataURL(this.files[0]);
                 }
             });
@@ -116,6 +118,7 @@
                  * Second : transparent background
                  * Third: 2nd canvas, where image will get cropped 
                  */
+                 
                 var cropContainer = $("#cropWrapper");
                 var bgcanvas = document.createElement('canvas');
                 bgcanvas.id = 'bgCanvas';

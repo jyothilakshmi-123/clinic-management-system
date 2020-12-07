@@ -65,8 +65,8 @@ router.get('/admin-home', (req,res)=>{
   
   
   let doctorsList=  doctorHelpers.getActiveDoctorsList().then((doctorsList)=>{
-    console.log(doctorsList)
-    console.log(doctorsList.Specilised)
+    // console.log(doctorsList)
+    // console.log(doctorsList.Specilised)
     
   
   // res.render('admin/admin-home',{ admin,  doctorsList})
@@ -91,11 +91,12 @@ router.get('/add-doctor',(req,res)=>{
 })
 router.post('/add-doctor',(req,res)=>{
   // console.log(req.body)
-  console.log(req.files.Image)
+  // console.log("before crop...."+req.files.Image)
+  console.log("cropped one..."+req.files.Image) 
   doctorHelpers.addDoctor(req.body).then((id)=>{  
     console.log(id)
-    let image = req.files.Image 
-    image.mv('./public/doctor-images/'+id+'.jpg',(err,done)=>{
+    let image = req.files.Image
+    image.mv('./public/doctor-images/'+id+'.png',(err,done)=>{
       if(!err){
         // res.render('admin/add-doctor')  
         res.redirect('/admin/admin-home')

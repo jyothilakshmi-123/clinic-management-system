@@ -1,6 +1,7 @@
 var db = require('../config/connection')
 var collection = require('../config/collections')
 var objectId = require('mongodb').ObjectID
+const bcrypt = require('bcrypt')
 
 module.exports ={
     addPatient:(patient)=>{
@@ -60,5 +61,42 @@ module.exports ={
                 resolve()  
             })
         })
-    }
+    },
+    doSignup:(ptData)=>{
+        return new Promise(async(resolve,reject)=>{
+            ptData.ptPassword = await bcrypt.hash(ptData.ptPassword,10)
+            db.get().collection(collection.PATIENT_COLLECTION).insertOne(ptData).then((data)=>{
+                resolve(data.ops[0])
+            })
+
+        })
+        
+        
+    },
+    doLogin: (ptData)=>{
+        return new Promise(async(resolve,reject)=>{
+            let loginStatus = false
+            let response = {}
+            console.log(ptData)
+            let patient =await db.get().collection(collection.PATIENT_COLLECTION).findOne({ptEmail:ptData.ptEmail})
+            if(patient){
+                bcrypt.compare(ptData.ptPassword,patient.ptPassword).then((status)=>{
+                    if(status){
+                        console.log("login success")
+                        response.patient = patient
+                        response.status = true
+                        resolve(response)
+                    }
+                    else{
+                        console.log("login failed")
+                        resolve({status:false})
+                    }
+
+                })
+            }else{
+                console.log("login failed")
+                resolve({status:false})
+            }
+        })
+    },
 }
