@@ -1,0 +1,117 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="/">Home</a>
+                {{!-- <a class="nav-item nav-link" href="#">Register</a> --}}
+            </div>
+        </div>
+    </nav>
+</header>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal fade" id="confirmation">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close mr-auto" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body   ">
+                                <p>Your appointment for {{doctor.drName}} has been confirmed</p>
+                                <p>Booking for : {{user.userName}}</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <a href="/user-home">View Appointments</a>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container text-center mt-3">
+        <h3 class="container text-center mt-3" style="color: rgb(116, 11, 75);">BOOK AN APPOINTMENT</h3>
+        <div class="row">
+
+            <div class="col-md-3 " style="height: 550px;">
+                <div class="card border mt-5 mb-5" style="height:450px  ;">
+                    <div class="card-body text-center">
+                        <img class=" rounded-circle  mb-3 border card-image " style="width: 150px; height: 150px "
+                            src="/doctor-images/{{doctor._id}}.jpg" alt="">
+                        <h3>{{doctor.drName}}</h3>
+                        <h5>({{doctor.drSpecialised}})</h5>
+                        <p>({{doctor.drSpeciality}})</p>
+
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-9 text-center">
+                <form action="/make-appointment" id="#appointment-form" method="post" class="mt-5">
+                    <div class="border mt-5 p-3" style="height:450px  ;">
+                        <h5 class="border p-2 text-white  "
+                            style="border-radius: 10px;background-color: rgb(13, 13, 128);">
+                            SELECT YOUR DATE AND TIME</h5>
+                        <p class="mt-5" style="color: blueviolet;">Morning 09:30 AM-12:00 PM Afternoon 12:00 PM - 04:00
+                            PM
+                            <br>Evening 04:15 PM - 04:30 PM
+                        </p>
+                        <div class="container mt-5">
+                            <label for="">Select a Date :</label>
+                            <input type="date" id="Date" name="dateOfBooking">
+                            <label for="appt">Choose a time :</label>
+
+                            <input type="time" id="Time" name="timeOfBooking" min="09:00" max="18:00" required>
+                        </div>
+                        <input type="hidden" id="Status" name="Status" value="Pending">
+                        <input type="hidden" id="drName" name="drName" value="{{doctor.drName}}">
+                        <input type="hidden" id="drId" name="dr_id" value="{{doctor._id}}">
+                        <input type="hidden" id="userName" name="userName" value="{{user.userName}}">
+                        <input type="hidden" id="userMobile" name="userMobile" value="{{user.userMobile}}">
+                        <input type="hidden" id="userAge" name="userAge" value="{{user.userAge}}">
+                        <input type="hidden" id="userId" name="user_id" value="{{user._id}}">
+
+
+                        <button class="submit btn btn-info mt-5">Make An
+                            Appointment</button>
+
+
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $("#appointment-form").submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: '/make-appointment',
+            method: 'post',
+            data: $('#appointment-form').serialize(),
+            success: (response) => {
+                window.location.reload()
+            }
+        })
+    })
+</script>

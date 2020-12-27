@@ -1,0 +1,27 @@
+<div class="section">
+    <div class="container mb-5 pb-5 ">
+        <div class="col-md-6 m-auto">
+            <form action="/doctor" method="post" class="mt-5">
+
+                <h2 class="text-center">Login</h2>
+
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" placeholder="Enter email" name="drEmail">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" placeholder="Enter password" name="drPassword">
+                </div>
+                {{#if LoginErr}}
+                    <div >
+                        <p class="text-danger">{{LoginErr}}</p>
+                        {{!-- <button class="btn btn-danger"></button> --}}
+                    </div>
+                {{/if}}
+                 
+                <button type="submit" class="btn btn-primary float-right ">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

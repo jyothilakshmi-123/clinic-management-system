@@ -1,0 +1,41 @@
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto ">
+                <h2 class="text-center mt-3">Add Patient</h2>
+                <form class="mb-5 mt-3" action="/admin/add-user" method="POST" enctype="multipart/form-data">
+
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="userName">
+
+
+
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" name="userAge">
+
+
+                    <label for="mobile">Mobile Number</label>
+                    <input type="text" class="form-control" name="userMobile">
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" placeholder="Enter email" name="userEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" placeholder="Enter password" name="userPassword">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Image</label>
+                        <input type="file" name="Image" id="upphoto" class="form-control-file">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-success mt-3">Submit</button>
+                    <input type="hidden" id="Status" name="Status" value="Active">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

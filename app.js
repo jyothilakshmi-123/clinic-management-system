@@ -5,10 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config()
 const passport = require('passport')
+const bodyParser = require('body-parser');
+var flash=require("connect-flash");
+
 
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
+var doctorRouter = require('./routes/doctor');
+
 var db = require('./config/connection');
 var session = require('express-session');
 var hbs = require('express-handlebars');
@@ -46,6 +51,19 @@ app.use(fileUpload())
 app.use(session({secret:"Key",cookie:{maxAge:6000000}}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(function(req, res, next) {
+  // res.locals.success_msg = req.flash('success_msg');
+  // res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+app.use(bodyParser.urlencoded({ extended: false }));
+ 
+// parse application/json
+app.use(bodyParser.json());
+
+
 
 db.connect((err)=>{
   if(err){
@@ -58,6 +76,7 @@ db.connect((err)=>{
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);
+app.use('/doctor', doctorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -74,14 +93,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-// Handlebars.registerHelper('ifEqual', function(attribute, value) {
-//   if (attribute == value) {
-//       return options.fn(this);
-//   }
-//   else {
-//       return options.inverse(this);  
-//   }
-// });
+
 
 
 module.exports = app;

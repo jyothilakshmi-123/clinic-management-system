@@ -14,7 +14,7 @@ module.exports.connect = function(done){
         if (err) {
             return done(err)
         }
-        state.db = data.db(dbname)
+        state.db = data.db(dbname)    
         done()
     })
 

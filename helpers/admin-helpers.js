@@ -42,6 +42,16 @@ module.exports={
                 
         })
     },
+    getAppointmentList:()=>{
+        return new Promise(async(resolve,reject)=>{
+            // var confirmedAppointments = {Status : "Confirmed" }
+            appointmentList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({Status : "Confirmed" }).toArray()
+            console.log("list....")
+            console.log(appointmentList)
+            resolve(appointmentList)
+
+        })
+    }
     
     
 }

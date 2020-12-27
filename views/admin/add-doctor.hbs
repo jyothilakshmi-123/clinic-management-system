@@ -4,288 +4,208 @@
             <div class="col-md-6 m-auto">
                 <h2 class="text-center mt-3">Add Doctor</h2>
                 <form class="mb-5 mt-3" action="/admin/add-doctor" method="POST" enctype="multipart/form-data">
-
+                    
                     <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" name="drName">
+                    <input type="text" class="form-control" name="drName" placeholder="Enter Doctor Name">
 
 
 
                     <label for="exampleInputPassword1">Specialised</label>
-                    <input type="text" class="form-control" name="drSpecialised">
+                    <input type="text" class="form-control" name="drSpecialised" placeholder="Enter Doctor Specialised" >
 
 
                     <label for="exampleInputPassword1">Speciality</label>
-                    <input type="text" class="form-control" name="Speciality">
+                    <input type="text" class="form-control" name="drSpeciality" placeholder="Enter Doctor Speciality">
+
+                    <label for="email">Username</label>
+                    <input type="email" class="form-control" name="drEmail" placeholder="Enter the username">
 
 
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" name="drPassword">
+                    <input type="password" class="form-control" name="drPassword"placeholder="Enter the Password">
+					<div class="form-group">
+                        <label for="">Image</label>
+                        <img src="/doctor-images/default.png" id="imgView" class="mt-3 mb-3" style="width: 50px;height:auto" alt="">
+                        <input type="file" name="Image" class="form-control-file" onchange="viewImage(event)" >
+                    </div>
 
-                    <div class="form-group">
+                    {{!-- <div class="form-group"> --}}
                         {{!-- <label for="">Image</label> --}}
                         {{!-- <input type="file" name="Image" id="upphoto" class="form-control-file"> --}}
-                        <input type="file" id="upphoto" style="display:none; " name="Image" >
-                        <label for="upphoto">
-                            <div class="inputLabel">
-                                click here to upload an image
-                            </div>
-                        </label>
-                    </div>
-                    <div>
-                        <input id="croppedImg" name="croppedImg" style="border:1px solid #000; margin:auto;">
-                    </div>
-                    <button type="submit" class="btn btn-success mt-3">Submit</button>
+                        {{!-- <input type="file" class="mt-3 " name="Image" > --}}
+                        {{!-- <div class="image_area   mt-3">
+                            <label for="upload_image">
+                                <img src="/doctor-images/default.png" id="uploaded_image"
+                                    class="img-responsive img-circle " />
+                                <div class="overlay">
+                                    <div class="text">click here to Change Image</div>
+                                </div>
+                                <input type="file" name="image" class="image" id="upload_image" style="display:none" />
+                            </label>
+                        </div> --}}
+
+                        {{!-- </div> --}}
+                        {{!-- <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+			  	<div class="modal-dialog modal-lg" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<h5 class="modal-title">Crop Image Before Upload</h5>
+			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          			<span aria-hidden="true">×</span>
+			        		</button>
+			      		</div>
+			      		<div class="modal-body">
+			        		<div class="img-container">
+			            		<div class="row">
+			                		<div class="col-md-8">
+			                    		<img src="" id="sample_image" />
+			                		</div>
+			                		<div class="col-md-4">
+			                    		<div class="preview"></div>
+			                		</div>
+			            		</div>
+			        		</div>
+			      		</div>
+			      		<div class="modal-footer">
+			      			<button type="button" id="crop" class="btn btn-primary">Crop</button>
+			        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div> --}}
+
+                    <button type="submit" class="btn btn-success mb-5">Submit</button>
                     <input type="hidden" id="Status" name="Status" value="Active">
                     {{!-- <input type="hidden" id="croppedImg" style="display:none; " name="croppedImg" > --}}
                 </form>
-            </div>
-            <div class="col-md-12">
-                <div class="cropHolder">
-                    <div id="cropWrapper">
-                        <img id="inputImage" src="/images/man-1.jpg">
-                    </div>
-                    <div class="cropInputs">
-                        <div class="inputtools">
-                            <p>
-                                <span>
-                                    <img src="/images/horizontal.png">
-                                </span>
-                                <span>horizontal movement</span>
-                            </p>
-                            <input type="range" class="cropRange" name="xmove" id="xmove" min="0" value="0">
-                        </div>
-                        <div class="inputtools">
-                            <p>
-                                <span>
-                                    <img src="/images/vertical.png">
-                                </span>
-                                <span>vertical movement</span>
-                            </p>
-                            <input type="range" class="cropRange" name="ymove" id="ymove" min="0" value="0">
-                        </div>
-                        <br>
-                        <button class="cropButtons" id="zplus">
-                            <img src="/images/add.png">
-                        </button>
-                        <button class="cropButtons" id="zminus">
-                            <img src="/images/minus.png">
-                        </button>
-                        <br>
-                        <button id="cropSubmit">submit</button>
-                        <button id="closeCrop">Close</button>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
 </div>
 <script>
+   function viewImage(event){
+       document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+   }
+</script>
+{{!-- <script>
 
-(function ($) {
-    $.fn.finecrop = function (options) {
+$(document).ready(function(){
 
-        var defaults = {
-            viewHeight: 0,
-            cropWidth: 200,
-            cropHeight: 200,
-            cropInput: 'myImage',
-            cropOutput: 'mysource',
-            zoomValue: 10
-        };
-        var settings = $.extend({}, defaults, options);
-        return this.each(function () {
-            var $obj = $(this);
-            $($obj).change(function () {
-                if (this.files && this.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#' + settings.cropInput).attr('src', e.target.result).css('opacity', 0);
-                        $('#' + settings.cropInput).attr('height', settings.viewHeight + 'px')
-                        $(".cropHolder").show();
-                        setTimeout(function () {
-                            cropstart();
-                        }, 1000);
+	var $modal = $('#modal');
 
-                    };
-                    var croppedImageDataURL = 
-                    reader.readAsDataURL(this.files[0]);
-                }
-            });
+	var image = document.getElementById('sample_image');
 
-            function cropstart() {
-                /* Let's Create canvas and backgrounds
-                 * First : background canvas, it will behind all
-                 * Second : transparent background
-                 * Third: 2nd canvas, where image will get cropped 
-                 */
-                 
-                var cropContainer = $("#cropWrapper");
-                var bgcanvas = document.createElement('canvas');
-                bgcanvas.id = 'bgCanvas';
-                bgcanvas.style.border = '1px solid #000';
-                $(cropContainer).append(bgcanvas);
+	var cropper;
 
-                // black sheet div
-                var blacksheet = document.createElement('div');
-                blacksheet.id = 'blacksheet';
-                $(cropContainer).append(blacksheet);
+	$('#upload_image').change(function(event){
+		var files = event.target.files;
 
-                // cropped canvas
-                var getCropped = document.createElement('canvas');
-                getCropped.id = 'getCropped';
-                getCropped.width = settings.cropWidth;
-                getCropped.height = settings.cropHeight;
-                getCropped.style.border = '1px solid #000';
-                $(cropContainer).append(getCropped);
+		var done = function(url){
+			image.src = url;
+			$modal.modal('show');
+		};
 
+		if(files && files.length > 0)
+		{
+			reader = new FileReader();
+			reader.onload = function(event)
+			{
+				done(reader.result);
+			};
+			reader.readAsDataURL(files[0]);
+		}
+	});
 
+	$modal.on('shown.bs.modal', function() {
+		cropper = new Cropper(image, {
+			aspectRatio: 1,
+			viewMode: 3,
+			preview:'.preview'
+		});
+	}).on('hidden.bs.modal', function(){
+		cropper.destroy();
+   		cropper = null;
+	});
 
-                /* CONSTANT
-                 * These two variable are constant as the actual width or height of an image is constant
-                 * 1. imgSrc : source of Image
-                 * 2. actualWidth : Natural width of image
-                 * 3. actualHeight : Natural height of image
-                 */
-                var imgSrc = document.getElementById(settings.cropInput); //$("#myImage");
-                var actualWidth = imgSrc.naturalWidth;
-                var actualHeight = imgSrc.naturalHeight;
-                var zoomValue = 0; // initial
+	$('#crop').click(function(){
+		canvas = cropper.getCroppedCanvas({
+			width:400,
+			height:400
+		});
 
-                // imgSrc.setAttribute('height', 500 + 'px'); // initial
-
-                var moveHorizontal = document.getElementById('xmove');
-                var moveVertical = document.getElementById('ymove');
-                var zoomIn = document.getElementById("zplus");
-                var zoomOut = document.getElementById("zminus");
-
-
-
-                var elemWidth, elemHeight, lValue, tValue;
-
-                function getImgRef() {
-                    elemWidth = imgSrc.width;
-                    elemHeight = imgSrc.height;
-                    lValue = (elemWidth - settings.cropWidth) / 2;
-                    tValue = (elemHeight - settings.cropHeight) / 2;
-                    // --- dynamic max values ---
-                    moveHorizontal.setAttribute('max', (elemWidth - settings.cropWidth));
-                    moveVertical.setAttribute('max', (elemHeight - settings.cropHeight));
-
-                    moveHorizontal.setAttribute('value', (elemWidth - settings.cropWidth) / 2);
-                    moveVertical.setAttribute('value', (elemHeight - settings.cropHeight) / 2);
-
-                }
-                getImgRef();
-
-
-                document.getElementById("zplus").onclick = function () {
-                    var imgSrcHeight = parseInt(imgSrc.getAttribute('height'));
-                    imgSrc.setAttribute('height', (imgSrcHeight + settings.zoomValue) + 'px');
-                    getImgRef();
-                    bgCanvas(lValue, tValue);
-                }
-                document.getElementById("zminus").onclick = function () {
-                    var imgSrcHeight = parseInt(imgSrc.getAttribute('height'));
-                    imgSrc.setAttribute('height', (imgSrcHeight - settings.zoomValue) + 'px');
-                    getImgRef();
-                    bgCanvas(lValue, tValue);
-                }
-                document.getElementById('cropSubmit').onclick = function () {
-                    $("#" + settings.cropOutput).attr('src', getCropped.toDataURL());
-                    $(bgcanvas).remove();
-                    $(blacksheet).remove();
-                    $(getCropped).remove();
-                    $(".cropHolder").hide();
-                }
-                document.getElementById("closeCrop").onclick = function(){
-                    $(bgcanvas).remove();
-                    $(blacksheet).remove();
-                    $(getCropped).remove();
-                    $(".cropHolder").hide();
-                }
-                // ------------- -------- drawImage properties ---------- -----------------
-                function cropCanvas(x, y) {
-
-                    var imgSrcC = bgcanvas;
-                    var context = getCropped.getContext("2d");
-
-                    var cwidth = getCropped.width;
-                    var cheight = getCropped.height;
-                    
-                    var sx = (elemWidth - cwidth) / 2;
-                    var sy = (elemHeight - cheight) / 2;
-                    var swidth = cwidth;
-                    var sheight = cheight;
-
-                    var dwidth = cwidth;
-                    var dheight = cheight;
-
-                    context.clearRect(0, 0, cwidth, cheight);
-                    context.drawImage(imgSrcC, sx, sy, swidth, sheight, 0, 0, dwidth, dheight);
-                    // img, sx, sy, swidth, sheight, dx, dy, dwidth, dheight
-                    // s = source
-                    // d = destination
-                };
-
-
-                // --------------- bg canvas -------------------
-                function bgCanvas(x, y) {
-                    lValue = x;
-                    tValue = y;
-
-                    var context = bgcanvas.getContext("2d");
-
-                    var cwidth = elemWidth;
-                    var cheight = elemHeight;
-                    bgcanvas.width = cwidth;
-                    bgcanvas.height = cheight;
-                    context.clearRect(0, 0, cwidth, cheight);
-                    /*
-                     * To ensure the perspective of an image, here is the calculation for new width and height
-                     * nw/nh = w/h;
-                     * nh = (h*nw)/w;
-                     + these below 'minus' lines are not in use anymore 
-                     - var dwidth = cwidth + zoomValue;
-                     - var dheight = (cheight * (cwidth + zoomValue))/cwidth;
-                     */
-
-
-                    var dwidth = cwidth;
-                    var dheight = cheight;
-
-                    var sx = (((x - (elemWidth - settings.cropWidth) / 2) * actualWidth) / elemWidth) + zoomValue;
-                    var sy = (((y - (elemHeight - settings.cropHeight) / 2) * actualHeight) / elemHeight);
-                    var swidth = (cwidth * actualWidth) / elemWidth;
-                    var sheight = (cheight * actualHeight) / elemHeight;
-                    
-                    context.drawImage(imgSrc, sx, sy, swidth, sheight, 0, 0, dwidth, dheight);
-                    cropCanvas(x, y);
-                };
-
-                bgCanvas(lValue, tValue);
-                /* get the current input
-                   for IE, 'oninput' doesn't work, should use 'onchange' 
-                */
-                if (navigator.appName == 'Microsoft Internet Explorer' || !!(navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv:11/)) || (typeof $.browser !== "undefined" && $.browser.msie == 1)) {
-                    alert("please do not use IE :) ");
-                } else {
-                    moveHorizontal.oninput = function (event) {
-                        bgCanvas(event.target.value, tValue)
-                    }
-                    moveVertical.oninput = function (event) {
-                        bgCanvas(lValue, event.target.value);
-                    }
-                }
-            }
-        });
-    };
-}(jQuery));
-    $("#upphoto").finecrop({
-  viewHeight: 500,
-  cropWidth: 200,
-  cropHeight: 200,
-  cropInput: 'inputImage',
-  cropOutput: 'croppedImg',
-  zoomValue: 50
+		canvas.toBlob(function(blob){
+			url = URL.createObjectURL(blob);
+			var reader = new FileReader();
+			reader.readAsDataURL(blob);
+			reader.onloadend = function(){
+				var base64data = reader.result;
+				$.ajax({
+					url:'/admin/add-doctor', 
+					method:'POST',
+					data:{image:base64data},
+					success:function(data)
+					{
+						$modal.modal('hide');
+						$('#uploaded_image').attr('src', data);
+					}
+				});
+			};
+		});
+	});
+	
 });
 </script>
+
+
+<style>
+    .image_area {
+        position: relative;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .preview {
+        overflow: hidden;
+        width: 160px;
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+
+    .modal-lg {
+        max-width: 1000px !important;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+        overflow: hidden;
+        height: 0;
+        transition: .5s ease;
+        width: 100%;
+    }
+
+    .image_area:hover .overlay {
+        height: 50%;
+        cursor: pointer;
+    }
+
+    .text {
+        color: #333;
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style> --}}

@@ -3,7 +3,9 @@ var express = require('express');
 var router = express.Router();
 const adminHelpers = require('../helpers/admin-helpers');
 const doctorHelpers = require('../helpers/doctor-helpers');
-const patientHelpers = require('../helpers/patient-helpers');
+const userHelpers = require('../helpers/user-helpers');
+const fs = require('fs');
+const mime = require('mime');
 
 // const verifyLogin = (req,res,next)=>{
 //   if(req.session.admin.loggedIn){
@@ -57,25 +59,23 @@ router.post('/', function(req,res){
 // })
 router.get('/admin-home', (req,res)=>{
   let admin = req.session.admin
-  console.log(req.body);
+  // console.log(req.body);
 
   console.log(admin)
-  let patientsList = patientHelpers.getActivePatientsList().then((patientsList)=>{
-    console.log(patientsList)
+  let usersList = userHelpers.getActiveUsersList().then((usersList)=>{
+    // console.log(usersList)
   
   
   let doctorsList=  doctorHelpers.getActiveDoctorsList().then((doctorsList)=>{
-    // console.log(doctorsList)
-    // console.log(doctorsList.Specilised)
+  let appointmentList=  adminHelpers.getAppointmentList().then((appointmentList)=>{
+    console.log(appointmentList)
     
-  
-  // res.render('admin/admin-home',{ admin,  doctorsList})
- 
-res.render('admin/admin-home',{ admin, doctorsList,  patientsList})
+res.render('admin/admin-home',{ admin, doctorsList,usersList,appointmentList})
+}) 
 }) 
 })
-})
-router.get('/logout',(req,res)=>{
+})   
+router.get('/logout',(req,res)=>{       
   req.session.admin = null
   console.log(req.session.admin)
   res.redirect('/')
@@ -90,13 +90,35 @@ router.get('/add-doctor',(req,res)=>{
   res.render('admin/add-doctor')        
 })
 router.post('/add-doctor',(req,res)=>{
-  // console.log(req.body)
-  // console.log("before crop...."+req.files.Image)
-  console.log("cropped one..."+req.files.Image) 
+  console.log(req.body)
+  console.log("before crop...."+req.files.Image)
+  // console.log("cropped one..."+req.files.Image) 
   doctorHelpers.addDoctor(req.body).then((id)=>{  
     console.log(id)
+//     var matches = req.body.base64image.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    
+//     response = {};
+//     console.log("matches........"+matches)
+ 
+//     if (matches.length !== 3) {
+//         return new Error('Invalid input string');
+//       }
+ 
+//     response.type = matches[1];
+//     response.data = new Buffer(matches[2], 'base64');
+//     let decodedImg = response;
+//     let imageBuffer = decodedImg.data;
+//     let type = decodedImg.type;
+//     let extension = mime.extension(type);
+//     let fileName = "image." + extension;
+//     try {
+//     fs.writeFileSync("./public/doctor-images/" + fileName, imageBuffer, 'utf8');  
+//     return res.send({"status":"success"});
+//     } catch (e) {
+//     next(e);
+// }
     let image = req.files.Image
-    image.mv('./public/doctor-images/'+id+'.png',(err,done)=>{
+    image.mv('./public/doctor-images/'+id+'.jpg',(err,done)=>{  
       if(!err){
         // res.render('admin/add-doctor')  
         res.redirect('/admin/admin-home')
@@ -121,6 +143,18 @@ router.post('/delete-doctor',(req,res,next)=>{
 
 })
 // ------------------------------------------------------
+// doctor block
+router.post('/block-doctor',(req,res,next)=>{
+  console.log(" printing req bdy in block doctor")
+  console.log(req.body)   
+  doctorHelpers.blockDoctor(req.body).then(()=>{
+    // res.json(response)  
+    res.redirect('/admin/admin-home')
+  })
+
+})
+
+// ------------------------------------------------------
 // dorctor update
 router.get('/edit-doctor/:id', async(req,res)=>{
   let doctor =await doctorHelpers.getDoctorsList(req.params.id)
@@ -140,21 +174,21 @@ router.post('/edit-doctor/:id',(req,res)=>{
 })
 // ----------------------------------------------------------------------------------------------------------------------------
 
-// patient details start from here
+// user details start from here
 
-//patient created
+//user created
 
-router.get('/add-patient',(req,res)=>{ 
+router.get('/add-user',(req,res)=>{ 
   // let admin = req.session.admin
-  res.render('admin/add-patient')          
+  res.render('admin/add-user')          
 })
-router.post('/add-patient',(req,res)=>{
+router.post('/add-user',(req,res)=>{
   console.log(req.body)
   console.log(req.files.Image)
-  patientHelpers.addPatient(req.body).then((id)=>{  
+  userHelpers.addUser(req.body).then((id)=>{  
     console.log(id)
     let image = req.files.Image
-    image.mv('./public/patient-images/'+id+'.jpg',(err,done)=>{
+    image.mv('./public/user-images/'+id+'.jpg',(err,done)=>{
       if(!err){
           
         res.redirect('/admin/admin-home')
@@ -163,37 +197,47 @@ router.post('/add-patient',(req,res)=>{
         console.log(err)
       }
     })
-    
-
   })
 
 })
 // ------------------------------------------------------
-// patient delete
+// user delete
 
-router.post('/delete-patient',(req,res,next)=>{
+router.post('/delete-user',(req,res,next)=>{
   console.log(req.body)   
-  patientHelpers.deletePatient(req.body).then((response)=>{
+  userHelpers.deleteUser(req.body).then((response)=>{
     // res.json(response)  
     res.redirect('/admin/admin-home')
   })
 
 })
 // ------------------------------------------------------
-// edit patient details
-router.get('/edit-patient/:id', async(req,res)=>{
-  let patient =await patientHelpers.getPatientsList(req.params.id)
-  console.log(patient)
-  res.render('admin/edit-patient',{patient})
+// user block
+router.post('/block-user',(req,res,next)=>{
+  console.log(" printing req bdy in block user")
+  console.log(req.body)   
+  userHelpers.blockUser(req.body).then((response)=>{
+    // res.json(response)  
+    res.redirect('/admin/admin-home')
+  })
+
 })
-router.post('/edit-patient/:id',(req,res)=>{
+
+// ------------------------------------------------------
+// edit user details
+router.get('/edit-user/:id', async(req,res)=>{
+  let user =await userHelpers.getUsersList(req.params.id)
+  console.log(user)
+  res.render('admin/edit-user',{user})
+})
+router.post('/edit-user/:id',(req,res)=>{
   console.log(req.params.id)
   let id = req.params.id
-  patientHelpers.updatePatient(req.params.id,req.body).then(()=>{
+  userHelpers.updateUser(req.params.id,req.body).then(()=>{
     res.redirect('/admin/admin-home')
     if(req.files.Image){
       let image = req.files.Image
-      image.mv('./public/patient-images/'+id+'.jpg')
+      image.mv('./public/user-images/'+id+'.jpg')
     }
   })
 })
