@@ -147,7 +147,7 @@ router.post('/delete-doctor',(req,res,next)=>{
 router.post('/block-doctor',(req,res,next)=>{
   console.log(" printing req bdy in block doctor")
   console.log(req.body)   
-  doctorHelpers.blockDoctor(req.body).then(()=>{
+  doctorHelpers.blockDoctor(req.body).then((response)=>{
     // res.json(response)  
     res.redirect('/admin/admin-home')
   })
@@ -239,6 +239,13 @@ router.post('/edit-user/:id',(req,res)=>{
       let image = req.files.Image
       image.mv('./public/user-images/'+id+'.jpg')
     }
+  })
+})
+router.post('/collect-doctor-appointment',(req,res)=>{
+  console.log("collect dr id....")
+  console.log(req.body)
+  adminHelpers.collectDoctorAppointmentlist(req.body).then((response)=>{
+    res.json(response)
   })
 })
 

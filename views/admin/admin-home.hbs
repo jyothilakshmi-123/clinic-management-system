@@ -6,15 +6,16 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close mr-auto" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close mr-auto" data-dismiss="modal" 
+                                 onclick="refreshPage()" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-
                             </div>
                             <div class="modal-body  ">
-                               
-
-
+                                <div style="text-align: center;">
+                                    <h1>D3.js </h1>
+                                    <div id="d3-container" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -27,7 +28,7 @@
 <section>
     <div class="row ">
         <div class="col-md-2  ml-5 " style="padding-right: 0px; background-color: lightblue;">
-            <div class="personalDetails  " >
+            <div class="personalDetails  ">
                 <ul><img style="width: 130px;
         height: 140px;
         border-radius: 50%;" class=" mb-3 mt-5  "
@@ -105,8 +106,8 @@
                                     class="fa fa-table  mr-3 fa-1x"></i>Add Doctors</a></h4>
 
                         <form class="form-inline my-2 my-lg-0 ml-auto">
-                            <input type="text" name="search1" id="search1" class="form-control" />  
-                            
+                            <input type="text" name="search1" id="search1" class="form-control" />
+
                         </form>
                     </div>
                     <table class="table mt-4 border p-3 mb-5" id="doctor_table">
@@ -126,32 +127,33 @@
                                 {{!-- <th scope="row">3</th> --}}
 
                                 <td><img class="mr-2" style="width: 50px; height: 50px "
-                                        src="/doctor-images/{{this._id}}.jpg"data-toggle="modal"
-                                                data-target="#doctor-details"
-                                         alt="">{{this.drName}}</td>
+                                        src="/doctor-images/{{this._id}}.jpg" data-toggle="modal"
+                                        onclick="getGraph('{{this._id}}')" data-target="#doctor-details"
+                                        alt="">{{this.drName}}</td>
                                 <td>{{this.drSpecialised}}</td>
                                 <td>{{this.drSpeciality}}</td>
 
                                 {{!-- <td><a href="" style="color: green;"
-                                onclick="blockDoctor('{{this._id}}')">{{this.Status}}</a></td>
+                                        onclick="blockDoctor('{{this._id}}')">{{this.Status}}</a></td>
                                 <td> --}}
-                                    <td><button class="block-doctor " style="color: green;"
-                                     onclick="blockDoctor('{{this._id}}')">
+                                <td><button class="block-doctor " style="color: green;"
+                                        onclick="blockDoctor('{{this._id}}')">
                                         {{this.Status}}
                                     </button></td>
-                                    <td>
+                                <td>
 
                                     <a class="" href="/admin/edit-doctor/{{this._id}}"><i
                                             class="fa fa-wrench mr-3 border p-2 "></i></a>
                                     {{!-- <a class="btn btn-danger" href="/admin/delete-product/{{this._id}}"
-                                        onclick="return confirm('Do you want to delete {{this.Name}} ?')">Delete</a> --}}
+                                        onclick="return confirm('Do you want to delete {{this.Name}} ?')">Delete</a>
+                                    --}}
 
                                     {{!-- <a class="" href="/admin/delete-doctor/{{this._id}}"><i
                                             class="fa fa-times mr-3 border p-2 "></i></a> --}}
                                     <button class="delete-doctor " onclick="deleteDoctor('{{this._id}}')"><i
                                             class="fa fa-times   " style="color: red;"></i></button>
-                                            </td>
-                                           
+                                </td>
+
                             </tr>
                             {{/each}}
                         </tbody>
@@ -169,8 +171,9 @@
                                     class="fa fa-table  mr-3 fa-1x"></i>Add Patients</a></h4>
 
                         <form class="form-inline my-2 my-lg-0 ml-auto">
-                            <input type="text" name="search2" id="search2" class="form-control" /> 
-                            {{!-- <input class="form-control mr-sm-2 ml-auto" type="search" placeholder="Search Patients">
+                            <input type="text" name="search2" id="search2" class="form-control" />
+                            {{!-- <input class="form-control mr-sm-2 ml-auto" type="search"
+                                placeholder="Search Patients">
                             <button class="btn btn-outline-success " type="submit">Search </button> --}}
                         </form>
                     </div>
@@ -196,22 +199,23 @@
                                 <td>{{this.userMobile}}</td>
 
                                 <td><button class="block-user " style="color: green;"
-                                     onclick="blockUser('{{this._id}}')">
+                                        onclick="blockUser('{{this._id}}')">
                                         {{this.Status}}
                                     </button></td>
-                                    <td>
+                                <td>
 
                                     <a class="" href="/admin/edit-user/{{this._id}}"><i
                                             class="fa fa-wrench mr-3 border p-2 "></i></a>
                                     {{!-- <a class="btn btn-danger" href="/admin/delete-product/{{this._id}}"
-                                        onclick="return confirm('Do you want to delete {{this.Name}} ?')">Delete</a> --}}
+                                        onclick="return confirm('Do you want to delete {{this.Name}} ?')">Delete</a>
+                                    --}}
 
                                     {{!-- <a class="" href="/admin/delete-doctor/{{this._id}}"><i
                                             class="fa fa-times mr-3 border p-2 "></i></a> --}}
                                     <button class="delete-user " onclick="deleteUser('{{this._id}}')"><i
                                             class="fa fa-times   " style="color: red;"></i></button>
                                 </td>
-                                           
+
                             </tr>
                             {{/each}}
                         </tbody>
@@ -229,36 +233,38 @@
 
                         <form class="form-inline my-2 my-lg-0 m-auto">
                             <input id="search3" name="search" placeholder="live search" type="text"
-                             data-list=".data-list">
-                            
+                                data-list=".data-list">
+
                         </form>
-                    {{!-- </div> --}}
+                        {{!--
+                    </div> --}}
                     <div class="row">
-                         {{#each appointmentList}}
-                    <div class="col-md-4 ">
-                        <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
-                            <div class="card-header ">
-                                <img class=" float-left rounded-circle  border card-image "
-                                    style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg" alt="">
-                                <h3 class="float-right mt-4 ml-1">{{this.drName}}</h3>
+                        {{#each appointmentList}}
+                        <div class="col-md-4 ">
+                            <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
+                                <div class="card-header ">
+                                    <img class=" float-left rounded-circle  border card-image "
+                                        style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg"
+                                        alt="">
+                                    <h3 class="float-right mt-4 ml-1">{{this.drName}}</h3>
+                                </div>
+                                <div class="card-body ">
+
+                                    <p>Appointment Date : {{this.dateOfBooking}}</p>
+                                    <p>Appointment Time : {{this.timeOfBooking}}</p>
+                                    <p>Booking For : {{this.userName}}</p>
+                                    {{!-- <button type="button" class="  mt-3 mb-3 p-2"
+                                        style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
+                                        an Appointment</button> --}}
+                                </div>
+
+
+
+
+
                             </div>
-                            <div class="card-body ">
-
-                                <p>Appointment Date : {{this.dateOfBooking}}</p>
-                                <p>Appointment Time : {{this.timeOfBooking}}</p>
-                                <p>Booking For : {{this.userName}}</p>
-                                {{!-- <button type="button" class="  mt-3 mb-3 p-2"
-                                    style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
-                                    an Appointment</button> --}}
-                            </div>
-
-
-
-
-
                         </div>
-                    </div>
-                    {{/each}}
+                        {{/each}}
                     </div>
                 </div>
             </div>
@@ -274,7 +280,7 @@
     function startTab() {
         document.getElementById("defaultOpen").click();
 
-    }
+    };
 
     function admin(evt, evtName) {
         // Declare all variables
@@ -295,124 +301,204 @@
         // Show the current tab, and add an "active" class to the button that opened the tab
         document.getElementById(evtName).style.display = "block";
         evt.currentTarget.className += " active";
-    }
-    function deleteDoctor(drId){
-        if (confirm('Are you sure you want to delete this?')){
+    };
+    function deleteDoctor(drId) {
+        if (confirm('Are you sure you want to delete this?')) {
             $.ajax({
-                url:'/admin/delete-doctor',
-                data:{
-                    dr:drId,
-                    
+                url: '/admin/delete-doctor',
+                data: {
+                    dr: drId,
+
                 },
-                method:'post',
-                success:(response)=>{
-                    {{!-- alert('Doctor is removed from the List') --}}
+                method: 'post',
+                success: (response) => {
+
                     window.location.reload()
-                    }
+                }
 
             })
         }
-    }
-    function blockDoctor(drId){
-        if (confirm('Are you sure you want to change the status of  this doctor?')){
+    };
+    function blockDoctor(drId) {
+        if (confirm('Are you sure you want to change the status of  this doctor?')) {
             $.ajax({
-                url:'/admin/block-doctor',
-                data:{
-                    dr:drId,
-                    
+                url: '/admin/block-doctor',
+                data: {
+                    dr: drId,
+
                 },
-                method:'post',
-                success:(response)=>{
-                    {{!-- alert('Doctor is removed from the List') --}}
+                method: 'post',
+                success: (response) => {
+
                     window.location.reload()
-                    }
+                }
 
             })
         }
-    }
-    function deleteUser(userId){
-        if (confirm('Are you sure you want to delete this?')){
+    };
+    function deleteUser(userId) {
+        if (confirm('Are you sure you want to delete this?')) {
             $.ajax({
-                url:'/admin/delete-user',
-                data:{
-                    user:userId,
-                    
+                url: '/admin/delete-user',
+                data: {
+                    user: userId,
+
                 },
-                method:'post',
-                success:(response)=>{
-                   
+                method: 'post',
+                success: (response) => {
+
                     window.location.reload()
-                    }
+                }
 
             })
         }
-    }
-    function blockUser(userId){
-        if (confirm('Are you sure you want to change the status of  this patient?')){
+    };
+    function blockUser(userId) {
+        if (confirm('Are you sure you want to change the status of  this patient?')) {
             $.ajax({
-                url:'/admin/block-user',
-                data:{
-                    user:userId,
-                    
+                url: '/admin/block-user',
+                data: {
+                    user: userId,
+
                 },
-                method:'post',
-                success:(response)=>{
-                    {{!-- alert('Doctor is removed from the List') --}}
+                method: 'post',
+                success: (response) => {
+                    console.log("blocked..")
                     window.location.reload()
-                    }
+                }
 
             })
         }
-    }
+    };
+
+    $(document).ready(function () {
+        $('#search1').keyup(function () {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#doctor_table tr').each(function () {
+                var found = 'false';
+                $(this).each(function () {
+                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        found = 'true';
+                    }
+                });
+                if (found == 'true') {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+    $(document).ready(function () {
+        $('#search2').keyup(function () {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#user_table tr').each(function () {
+                var found = 'false';
+                $(this).each(function () {
+                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        found = 'true';
+                    }
+                });
+                if (found == 'true') {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+
+    function getGraph(drId) {
+        console.log("------------ calling my graph-----------")
+        console.log(drId)
+
+        {{!-- let Confirmed = 0
+        let Cancelled = 0
+        let Pending = 0
+        let Consulted = 0 --}}
+
+        let datas = $.ajax({
+            url: '/admin/collect-doctor-appointment',
+            data: {
+                doctor: drId,
+            },
+            method: 'post',
+            success: (response) => {
+               const Confirmed = response.Confirmed;
+               const  Cancelled = response.Cancelled;
+               const  Pending = response.Pending;
+               const  Consulted = response.Consulted;
+                const data = [
+                    { name: 'Confirmed', score: Confirmed },
+                    { name: 'Cancelled', score: Cancelled },
+                    { name: 'Pending', score: Pending },
+                    { name: 'Consulted', score: Consulted }
+                ];
+
+                const width = 900;
+                const height = 450;
+                const margin = { top: 50, bottom: 50, left: 50, right: 50 };
+
+                const svg = d3.select('#d3-container')
+                    .append('svg')
+                    .attr('width', width - margin.left - margin.right)
+                    .attr('height', height - margin.top - margin.bottom)
+                    .attr("viewBox", [0, 0, width, height]);
+
+                const x = d3.scaleBand()
+                    .domain(d3.range(data.length))
+                    .range([margin.left, width - margin.right])
+                    .padding(0.1)
+
+                const y = d3.scaleLinear()
+                    .domain([0, 10])
+                    .range([height - margin.bottom, margin.top])
+
+                svg
+                    .append("g")
+                    .attr("fill", 'royalblue')
+                    .selectAll("rect")
+                    .data(data.sort((a, b) => d3.descending(a.score, b.score)))
+                    .join("rect")
+                    .attr("x", (d, i) => x(i))
+                    .attr("y", d => y(d.score))
+                    .attr('title', (d) => d.score)
+                    .attr("class", "rect")
+                    .attr("height", d => y(0) - y(d.score))
+                    .attr("width", x.bandwidth());
+
+                function yAxis(g) {
+                    g.attr("transform", `translate(${margin.left}, 0)`)
+                        .call(d3.axisLeft(y).ticks(null, data.format))
+                        .attr("font-size", '20px')
+                }
+
+                function xAxis(g) {
+                    g.attr("transform", `translate(0,${height - margin.bottom})`)
+                        .call(d3.axisBottom(x).tickFormat(i => data[i].name))
+                        .attr("font-size", '20px')
+                }
+
+                svg.append("g").call(xAxis);
+                svg.append("g").call(yAxis);
+                svg.node();
+            }
+        })
+        
+    };
     
-      $(document).ready(function(){  
-           $('#search1').keyup(function(){  
-                search_table($(this).val());  
-           });  
-           function search_table(value){  
-                $('#doctor_table tr').each(function(){  
-                     var found = 'false';  
-                     $(this).each(function(){  
-                          if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
-                          {  
-                               found = 'true';  
-                          }  
-                     });  
-                     if(found == 'true')  
-                     {  
-                          $(this).show();  
-                     }  
-                     else  
-                     {  
-                          $(this).hide();  
-                     }  
-                });  
-           }  
-      });  
-      $(document).ready(function(){  
-           $('#search2').keyup(function(){  
-                search_table($(this).val());  
-           });  
-           function search_table(value){  
-                $('#user_table tr').each(function(){  
-                     var found = 'false';  
-                     $(this).each(function(){  
-                          if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)  
-                          {  
-                               found = 'true';  
-                          }  
-                     });  
-                     if(found == 'true')  
-                     {  
-                          $(this).show();  
-                     }  
-                     else  
-                     {  
-                          $(this).hide();  
-                     }  
-                });  
-           }  
-      });  
- 
 
 </script>
+<script>
+    function refreshPage(){
+    window.location.reload();
+}
+</script>
+
+<script src="/javascripts/mygraph.js"></script>
