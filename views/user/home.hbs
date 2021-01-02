@@ -13,16 +13,16 @@
             <a class="navbar-brand text-white ml-2" href="#">BLOG</a>
             <a class="navbar-brand text-white " href="#">CONTACT</a>
             {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul> --}}
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul> --}}
             <div class="navbar-nav ml-auto">
 
                 <div class="dropdown">
@@ -31,8 +31,6 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{#if user}}
                         {{user.userName}}
-                        {{else if user1}}
-                        {{user1.userName}}
                         {{else}}
                         Login
                         {{/if}}
@@ -41,11 +39,7 @@
                         {{#if user}}
                         <a class="dropdown-item " href="/user-home">Profile</a>
                         <a class="dropdown-item " href="/logout">Logout</a>
-                        {{else if user1}}
-                        <a class="dropdown-item " href="/user-home">Profile</a>
-                        <a class="dropdown-item " href="/logout">Logout</a>
                         {{else}}
-
                         <a class="dropdown-item text-success" data-toggle="modal" data-target="#userLogin" href="#">User
                             Login</a>
                         <a class="dropdown-item text-success" href="/doctor">Dr Login</a>
@@ -64,26 +58,25 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="modal fade" id="userLogin">
-                    <div class="modal-dialog modal-sm">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close mr-auto" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
-                                <h3>Sign up or log in to Dr.care</h3>
+
                             </div>
                             <div class="modal-body text-center  ">
-                                {{!-- <form action="/phone-login" method="post">
-                                    <input type="tel" placeholder="Phone Number" name=number>
-                                    <button class="btn btn-dark text-white mt-3 " value="send code">Send OTP</button>
-                                </form> --}}
+                                <h2 class="mb-5" style=" color: rgb(15, 201, 201);"><i
+                                        class="fa fa-heartbeat mr-3 fa-2x" style=" color: rgb(15, 201, 201);"></i>Login
+                                    to Dr.CARE</h2>
                                 {{#if error}}
                                 <p>{{error}}</p>
                                 {{/if}}
                                 <p>Please enter your phone number (in international format, starting with +) to receive
                                     a verification code:</p>
                                 <form method="post" action="/phone-login">
-                                    <input type="tel" name="number" />
+                                    <input type="tel" class="mb-3 mr-4" name="number" />
                                     <input type="submit" value="Send code" />
                                 </form>
 
@@ -92,16 +85,23 @@
                                 <hr>
                                 <p class="text-center">OR</p>
                                 <div class="mb-3">
-                                    <a href="/user-login" class="border p-2 ">Continue with Email</a>
+                                    <a href="/user-login" class="border p-2 btn-block "
+                                        style="background-color: rgb(12, 12, 134);color: #fff;">Continue with Email</a>
                                 </div>
 
 
 
-                                <ul class="inline mt-4 "></ul>
-                                <a href="/facebook" class="border p-2 "><i class="fa fa-facebook"
-                                        aria-hidden="true"></i>Facebook</a>
-                                <a href="/google" class="border p-2"><i class="fa fa-google"
-                                        aria-hidden="true"></i>Google</a>
+
+                                <div class=" row ">
+                                    <div class="col">
+                                        <a href="/facebook" class="btn btn-success btn-block "><i
+                                                class="fab fa-facebook mr-3 fa-1x " aria-hidden="true"></i>Facebook</a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="/google" class="btn btn-success btn-block  "><i
+                                                class="fab fa-google mr-3 fa-1x " aria-hidden="true"></i>Google</a>
+                                    </div>
+                                </div>
 
 
                             </div>

@@ -6,9 +6,8 @@ var logger = require('morgan');
 require('dotenv').config()
 const passport = require('passport')
 const bodyParser = require('body-parser');
-var flash=require("connect-flash");
-
-
+const flash = require('connect-flash');
+XLSX = require('xlsx');
 
 var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
@@ -18,8 +17,6 @@ var db = require('./config/connection');
 var session = require('express-session');
 var hbs = require('express-handlebars');
 // const H = require('just-handlebars-helpers');
-
-
 
 var app = express();
 var fileUpload = require('express-fileupload');
@@ -48,13 +45,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"Key",cookie:{maxAge:6000000}}));
+app.use(session({secret:"Key",
+                resave: true,
+                saveUninitialized: true,
+                 cookie:{maxAge:6000000}}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 app.use(function(req, res, next) {
-  // res.locals.success_msg = req.flash('success_msg');
-  // res.locals.error_msg = req.flash('error_msg');
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   next();
 });

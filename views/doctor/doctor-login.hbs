@@ -13,13 +13,16 @@
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" placeholder="Enter password" name="drPassword">
                 </div>
+                
                 {{#if LoginErr}}
-                    <div >
-                        <p class="text-danger">{{LoginErr}}</p>
-                        {{!-- <button class="btn btn-danger"></button> --}}
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                    {{LoginErr }}
+                    <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 {{/if}}
-                 
+
                 <button type="submit" class="btn btn-primary float-right ">Submit</button>
             </form>
         </div>

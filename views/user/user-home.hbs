@@ -40,13 +40,7 @@
                 <button class="btn btn-secondary dropdown-toggle mr-5 " type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{#if user}}
-
                     {{user.userName}}
-                    
-
-
-
-
                     {{/if}}
 
                 </button>
@@ -62,25 +56,25 @@
 </header>
 <section>
     <div class="row ">
-        <div class="col-md-2  ml-5 mb-5 " style="padding-right: 0px; background-color: lightblue; height: 350px;">
-            <div class=" row">
-                <div class="personalDetails  ">
-                    <ul><img style="width: 130px;
-                        height: 140px;
-                        border-radius: 50%;" class=" mb-3 mt-5  " src="/user-images/{{user._id}}.jpg" alt=""></ul>
-                    {{!-- <ul class="pt-5 "><i class="fas fa-user fa-3x"></i></ul> --}}
-                    <ul class=" pl-5 ">
-                        <h4>{{user.userName}}</h4>
-                    </ul>
-                    <ul class="text-dark">{{user.userEmail}}</ul>
+        <div class="col-md-2  ml-5 mb-5 text-center" style="background-color: lightblue; height: 350px;">
+            {{#if user.imagePresent}}
+            <img style="width: 130px;
+                            height: 140px;
+                            border-radius: 50%;" class=" mb-3 mt-5  " src="/user-images/{{user._id}}.jpg" alt="">
+            {{else}}
+            <img style="width: 130px;
+                            height: 130px;
+                            border-radius: 50%;" class=" mb-3 mt-5  " src="/user-images/default1.jpg" alt="">
+            {{/if}}
+            <h4 class="p-2">{{user.userName}}</h4>
+            <p class="text-dark"><small>{{user.userEmail}}</small></p>
+            <div class="text-center">
+                    <a class="ml-5" href="/edit-user/{{user._id}}">
+                        Edit Profile </a>
                 </div>
-                
-            </div>
-
-
         </div>
 
-        <div class="col-md-9 bg-light border p-4 ml-3 mb-5 " style=" ">
+        <div class="col-md-9 bg-light border  ml-3 mb-5 " style=" ">
             <div class="tabcontent" id="Appointments">
                 <div class="row">
 
@@ -206,10 +200,10 @@
                 </div>
             </div>
             <div class="tabcontent" id="Results">
-                 <div class="row">
+                <div class="row">
 
                     {{#each prescriptions}}
-                    <div class="col-md-4 ">
+                    <div class="col-md-4">
                         <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
                             <div class="card-header ">
                                 <img class=" float-left rounded-circle  border card-image "
@@ -217,19 +211,18 @@
                                 <h3 class="float-right mt-4 ml-1">{{this.drName}}</h3>
                             </div>
                             <div class="card-body ">
+                                {{#each this.userPrescription}}
+                                <p> {{this}}</p>
+                                {{/each}}
+                                <p>Appointment Date : {{this.dateOfBooking}}</p>
+                                <p>Doctor Notes : {{this.userNotes}}</p>
 
-                                <p>Prescription : {{this.userPrescription}}</p>
-                                
                                 {{!-- <button type="button" class="  mt-3 mb-3 p-2"
                                     style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
                                     an Appointment</button> --}}
                             </div>
 
-                            <div class="card-footer">
-                                <p class="float-right">Consulted</p>
-                                
-                            </div>
-
+                           
 
 
                         </div>
@@ -247,7 +240,7 @@
 
 
 <script>
-   window.onload = function () {
+    window.onload = function () {
         startTab();
     };
 
@@ -293,26 +286,25 @@
             })
         }
     }
-    
+
 </script>
-    {{!-- {
-        {
-            !-- function retryAppointments(appointmentId) {
-                if (confirm('Are you sure you want to retry booking?')) {
-                    $.ajax({
-                        url: '/retry-appointments',
-                        data: {
-                            appointment: appointmentId,
+{{!-- {
+{
+!-- function retryAppointments(appointmentId) {
+if (confirm('Are you sure you want to retry booking?')) {
+$.ajax({
+url: '/retry-appointments',
+data: {
+appointment: appointmentId,
 
-                        },
-                        method: 'post',
-                        success: (response) => {
+},
+method: 'post',
+success: (response) => {
 
-                            window.location.reload()
-                        }
+window.location.reload()
+}
 
-                    })
-                }
-            } --}
-    } --}}
-
+})
+}
+} --}
+} --}}

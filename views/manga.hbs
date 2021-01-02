@@ -1,99 +1,93 @@
 var wb = XLSX.utils.book_new();
 
-        wb.Props = {
-                Title: "SheetJS Tutorial",
-                Subject: "Test",
-                Author: "Jyothi C",
-                CreatedDate: new Date(2020,12,19)
-        };
-        
-        wb.SheetNames.push("Test Sheet");
-        var ws_data = [['hello' , 'world']];
-        var ws = XLSX.utils.aoa_to_sheet(ws_data);
-        wb.Sheets["Test Sheet"] = ws;
-        var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
-        function s2ab(s) {
-  
-                var buf = new ArrayBuffer(s.length);
-                var view = new Uint8Array(buf);
-                for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-                return buf;
-                
-        }
-        {{!-- $("#button-a").click(function(){
-            console.log("called s2ab function----------")
-                saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test123ff.xlsx');
-        }); --}}
+wb.Props = {
+Title: "SheetJS Tutorial",
+Subject: "Test",
+Author: "Jyothi C",
+CreatedDate: new Date(2020,12,19)
+};
 
-        function clickExcel(){
-              console.log("called s2ab function 111----------")
-         $("#button-a").click(function(){
-            console.log("called s2ab function 222----------")
-        
-        });
-        }
-router.get('/user-login', (req, res) => {
+wb.SheetNames.push("Test Sheet");
+var ws_data = [['hello' , 'world']];
+var ws = XLSX.utils.aoa_to_sheet(ws_data);
+wb.Sheets["Test Sheet"] = ws;
+var wbout = XLSX.write(wb, {bookType:'xlsx', type: 'binary'});
+function s2ab(s) {
+
+var buf = new ArrayBuffer(s.length);
+var view = new Uint8Array(buf);
+for (var i=0; i<s.length; i++) view[i]=s.charCodeAt(i) & 0xFF; return buf; } {{!-- $("#button-a").click(function(){
+  console.log("called s2ab function----------") saveAs(new
+  Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'test123ff.xlsx' ); }); --}} function clickExcel(){
+  console.log("called s2ab function 111----------") $("#button-a").click(function(){ console.log("called s2ab function
+  222----------") }); } router.get('/user-login', (req, res)=> {
   if (req.session.user) {
-    res.redirect("/")
+  res.redirect("/")
   } else {
-   
 
-    res.render('user/user-login', { 'LoginErr': req.session.userLogginErr })
-    req.session.adminLogginErr = false
+
+  res.render('user/user-login', { 'LoginErr': req.session.userLogginErr })
+  req.session.adminLogginErr = false
   }
 
 
-})
-router.post('/user-login', (req, res) => {
+  })
+  router.post('/user-login', (req, res) => {
   userHelpers.doLogin(req.body).then((response) => {
-    if (response.status) {
-      req.session.user = response.user
-      req.session.userloggedIn = true
-      res.redirect('/')
+  if (response.status) {
+  req.session.user = response.user
+  req.session.userloggedIn = true
+  res.redirect('/')
 
-    } else {
-      req.session.userLogginErr = "Invalid username or password"
-      res.redirect('/user-login')
-    }
+  } else {
+  req.session.userLogginErr = "Invalid username or password"
+  res.redirect('/user-login')
+  }
 
   })
-})
-router.get('/signup', (req, res) => {
+  })
+  router.get('/signup', (req, res) => {
   res.render('user/signup')
-})
-router.post('/signup', (req, res) => {
+  })
+  router.post('/signup', (req, res) => {
   console.log(req.body)
   console.log(req.files.Image)
 
-  userHelpers.addUser(req.body).then((response)=>{  
-    console.log(response._id)
-    
-    let image = req.files.Image
-    var id = response._id
-    req.session.user = response
-    req.session.userloggedIn=true
-    image.mv('./public/user-images/'+id+'.jpg',(err,done)=>{
-      if(!err){
-        res.redirect('/')
-      }
-      else{ 
-        console.log(err)
-      }
-    })
-    
-    // res.redirect('/')
+  userHelpers.addUser(req.body).then((response)=>{
+  console.log(response._id)
+
+  let image = req.files.Image
+  var id = response._id
+  req.session.user = response
+  req.session.userloggedIn=true
+  image.mv('./public/user-images/'+id+'.jpg',(err,done)=>{
+  if(!err){
+  res.redirect('/')
+  }
+  else{
+  console.log(err)
+  }
+  })
+
+  // res.redirect('/')
 
   })
 
-})
-else if (req.session.flash != null) {
-    console.log("Called loginattempted==============");
-    res.render('user/user-login', )
-    req.user = false
+  })
+  else if (req.session.flash != null) {
+  console.log("Called loginattempted==============");
+  res.render('user/user-login', )
+  req.user = false
   }
   else {
-    console.log("\n Called else block223................\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    console.log(req)
-    res.render('user/user-login'), { failureFlash: 'Please enter uname' }
-    // req.user = false
+  console.log("\n Called else block223................\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+  console.log(req)
+  res.render('user/user-login'), { failureFlash: 'Please enter uname' }
+  // req.user = false
   }
+  {{!-- crop................. --}}
+  <div class="form-group">
+    <label for="">Image</label>
+    <img src="/doctor-images/default.png" id="imgView" class="mt-3 mb-3" style="width: 50px;height:auto" alt="">
+    <input type="file" name="Image" class="form-control-file" onchange="viewImage(event)">
+  </div>

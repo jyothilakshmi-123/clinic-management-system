@@ -2,9 +2,7 @@
     <div class="container mb-5 pb-5 ">
         <div class="col-md-6 m-auto">
             <form action="/user-login" method="post" class="mt-5">
-
-                <h2 class="text-center">Login</h2>
-
+                <h2 class="text-center mb-3">Login</h2>
                 <div class="form-group">
                     <label for="email">Email address:</label>
                     <input type="email" class="form-control" placeholder="Enter email" name="userEmail">
@@ -13,13 +11,17 @@
                     <label for="pwd">Password:</label>
                     <input type="password" class="form-control" placeholder="Enter password" name="userPassword">
                 </div>
+                
                 {{#if error}}
-                    <div >
-                        <p class="text-danger">{{error}}</p>
-                        {{!-- <button class="btn btn-danger"></button> --}}
-                    </div>
+                <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                    {{error }}
+                    <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 {{/if}}
-                 <small class="text-muted ">
+
+                <small class="text-muted ">
                     Don't have an account? <a href="/signup" class="ml-2">Sign Up</a>
                 </small>
                 <button type="submit" class="btn btn-primary float-right ">Submit</button>

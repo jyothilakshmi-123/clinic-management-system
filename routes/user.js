@@ -8,6 +8,7 @@ require('dotenv').config()
 require('../helpers/passport-setup');
 const fs = require('fs');
 const mime = require('mime');
+var flash = require("connect-flash");
 
 
 // const twilio = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN)
@@ -27,33 +28,21 @@ router.get('/', function (req, res, next) {
   let user = req.user
 
   let doctorsList = doctorHelpers.getActiveDoctorsList().then((doctorsList) => {
-    console.log(doctorsList)
-
     res.render('user/home', { doctorsList, user });
   })
 });
-
 router.get('/user-login', (req, res) => {
-  // if (req.user) {
-  //   console.log("\n Called sucess block4455................\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-  //   console.log(req.user.userName)
-  //   console.log(req)
-  //   res.redirect("/user-home")
-  // }else{
-    res.render('user/user-login' )
-  //   req.user = false
-
-  // }
+  res.render('user/user-login')
 })
-
-
 router.post('/user-login', passport.authenticate('local',
   {
     successRedirect: '/',
     failureRedirect: '/user-login',
     failureFlash: true
+  }), function (req, res) {
+
   }
-  ));
+);
 
 
 
@@ -61,24 +50,20 @@ router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
 router.post('/signup', (req, res) => {
-  console.log(req.body)
-  console.log(req.files.Image)
-
   userHelpers.addUser(req.body).then((response) => {
-    console.log(response._id)
-
     let image = req.files.Image
     var id = response._id
-
     image.mv('./public/user-images/' + id + '.jpg', (err, done) => {
       if (!err) {
+        req.user =response
+        // req.session = true
+        req.user = true
         res.redirect('/')
       }
       else {
         console.log(err)
       }
     })
-
     // res.redirect('/')
 
   })
@@ -96,21 +81,9 @@ router.post('/signup', (req, res) => {
 
 router.get('/user-home', (req, res) => {
   let user = req.user
-  // let user1 = req.user  
   userHelpers.collectConfirmedAppointments(req.user._id).then((confirmedAppointments) => {
-    // console.log("confirmed result...."+ result) 
-
-
-
     userHelpers.collectCancelledAppointments(req.user._id).then((cancelledAppointments) => {
-      // console.log("confirmed result...."+ result) 
-
-
-
       userHelpers.collectPendingAppointments(req.user._id).then((pendingAppointments) => {
-        // console.log("confirmed result...."+ result) 
-
-
         userHelpers.collectPrescription(req.user._id).then((prescriptions) => {
           res.render('user/user-home', { user, confirmedAppointments, cancelledAppointments, pendingAppointments, prescriptions })
         })
@@ -153,13 +126,11 @@ router.post('/phone-login', function (req, res) {
   }, function (err, response) {
     if (err) {
       // Request has failed
-      console.log(err);
       res.render('user/home', {
         error: err.errors[0].description
       });
     } else {
       // Request was successful
-      console.log(response);
       res.render('user/phone-login', {
         id: response.id
       });
@@ -174,59 +145,50 @@ router.post('/verify', function (req, res) {
   messagebird.verify.verify(id, token, function (err, response) {
     if (err) {
       // Verification has failed
-      console.log(err);
       res.render('user/phone-login', {
         error: err.errors[0].description,
         id: id
       });
     } else {
       // Verification was successful
-      console.log(response);
       res.redirect('/user-login');
     }
   })
 });
 router.get('/make-appointment/:id', verifyLogin, async (req, res, next) => {
-  console.log("id is... :" + req.params.id)
   let user = req.user
-
   let doctor = await doctorHelpers.getDoctorsList(req.params.id)
-  console.log(doctor)
   // let pt = userHelpers.doLogin (req.body)
   res.render('user/make-appointment', { doctor, user })
 })
 router.post('/make-appointment', (req, res) => {
-  console.log(req.body)
-
   userHelpers.makeAppointment(req.body).then((response) => {
-    console.log(response)
-    // res.json(true)
-
     res.redirect('/confirmation')
-
   })
-
 })
 router.get('/confirmation', (req, res) => {
   userHelpers.collectCurrentBookedAppointments(req.user._id).then((currentAppointments) => {
-    // console.log("confirmed result...."+ result) 
-
-    console.log("confirmed bDetails...." + currentAppointments)
     res.render('user/confirmation', { user: req.user })
-
   })
 })
 router.post('/cancelled-appointments', (req, res, next) => {
-  console.log(req.body)
   userHelpers.cancelledAppointments(req.body).then((response) => {
-    // res.json(response)  
     res.redirect('/user/user-home')
   })
-
 })
-
-
-
-
+router.get('/edit-user/:id', async (req, res) => {
+  let user = await userHelpers.getUsersList(req.params.id)
+  res.render('user/edit-user', { user })
+})
+router.post('/edit-user/:id', (req, res) => {
+  let id = req.params.id
+  userHelpers.updateUser(req.params.id, req.body).then(() => {
+    res.redirect('/user-home')
+    if (req.files.Image) {
+      let image = req.files.Image
+      image.mv('./public/user-images/' + id + '.jpg')
+    }
+  })
+})
 
 module.exports = router;

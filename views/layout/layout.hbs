@@ -8,21 +8,30 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-        crossorigin="anonymous">
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"
-         crossorigin="anonymous">
-    </script>
-     <script src="https://d3js.org/d3.v5.min.js"></script>
-     
- 
+        integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous">
+        </script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    {{!--
+    <script src="https://cdn.jsdelivr.net/gh/BossBele/cropzee@latest/dist/cropzee.js" defer></script> --}}
+
     <script src="https://kit.fontawesome.com/197d1cb87f.js"></script>
-         {{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-         {{!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> --}}
+    {{!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+    {{!--
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> --}}
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+    <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
+    <script src="https://unpkg.com/dropzone"></script>
+    <script src="https://unpkg.com/cropperjs"></script>
 
-    
     <title>Hello, world!</title>
 </head>
 
@@ -31,81 +40,129 @@
         <div class="container">
             <div class="row pt-5 mb-5">
                 <div class="col-mb-4 mr-5 pr-5">
-                    <a class="  font-weight-bold" style=" color: rgb(15, 201, 201);" href="#"><i class="fa fa-heartbeat mr-3 fa-4x" ></i>Dr CARE</a>
+                    <a class="  font-weight-bold" style=" color: rgb(15, 201, 201);" href="#"><i
+                            class="fa fa-heartbeat mr-3 fa-4x"></i>Dr CARE</a>
                 </div>
                 <div class="col-mb-4 ml-5 mr-5 pr-5 ">
-                    <p ><i class="fa fa-fax mr-1 fa-1x border border-info p-1" ></i>Free Call +1 234 456 78910</p>
+                    <p><i class="fa fa-fax mr-1 fa-1x border border-info p-1"></i>Free Call +1 234 456 78910</p>
                     <p class="text-secondary">Call Us Now 24/7 Customer Support</p>
                 </div>
                 <div class="col-mb-4 ml-5 pl-5">
-                    <p ><i class="fa fa-location-arrow mr-1 border border-info p-1 " aria-hidden="true"></i>Our Location</p>
+                    <p><i class="fa fa-location-arrow mr-1 border border-info p-1 " aria-hidden="true"></i>Our Location
+                    </p>
                     <p class="text-secondary">198 West 21th Street, Suite 721 New York NY 10016</p>
                 </div>
             </div>
         </div>
     </header>
     {{#if admin }}
-        {{>admin-header}}
-    
-        
+    {{>admin-header}}
+
+
     {{else if dr}}
-        {{>dr-header}}
-    
+    {{>dr-header}}
+
     {{else }}
-        {{>other-pages}}
-    
+    {{>other-pages}}
+
     {{/if}}
     {{{body}}}
-    <footer >
+    <footer>
         <div class="jumbotron ">
             <div class="container ">
                 <div class="row ">
                     <div class="col-md-3">
-                        
-                        <a class="  font-weight-bold  " style=" color: rgb(15, 201, 201);" href="#"><i class="fa fa-heartbeat mr-3 fa-2x" ></i>Dr CARE</a>
-                        <p class="mt-5 mb-3">You can visit our <br> hospital after booking <br>  through this application</p>
-                        <p ><i class="fa fa-facebook  mr-1 fa-1x border border-info p-1" ></i> <i class="fa fa-twitter  mr-1 fa-1x border border-info p-1" ></i><i class="fa fa-instagram  ml-1 fa-1x border border-info p-1" ></i></p>
-                    
+
+                        <a class="  font-weight-bold  " style=" color: rgb(15, 201, 201);" href="#"><i
+                                class="fa fa-heartbeat mr-3 fa-2x"></i>Dr CARE</a>
+                        <p class="mt-5 mb-3">You can visit our <br> hospital after booking <br> through this application
+                        </p>
+                        <p><i class="fab fa-facebook  mr-1 fa-1x border border-info p-1"></i> <i
+                                class="fab fa-twitter  mr-1 fa-1x border border-info p-1"></i><i
+                                class="fab fa-instagram  ml-1 fa-1x border border-info p-1"></i></p>
+
                     </div>
 
-                   
+
                     <div class="col-md-2 ">
-                        <a href=""><h5 class="text-dark mb-5 ">DEPARTMENTS</h5></a>
-                        <a href=""><p >Ophthalmology</p></a>
-                        <a href=""><p>Nuclear Magnetic</p></a>
-                        <a href=""><p>X-Ray</p></a>
-                        <a href=""><p>Surgical</p></a>
-                        <a href=""><p>Cardiology</p></a>
-                        <a href=""><p>Dental</p></a>
-                        
+                        <a href="">
+                            <h5 class="text-dark mb-5 ">DEPARTMENTS</h5>
+                        </a>
+                        <a href="">
+                            <p>Ophthalmology</p>
+                        </a>
+                        <a href="">
+                            <p>Nuclear Magnetic</p>
+                        </a>
+                        <a href="">
+                            <p>X-Ray</p>
+                        </a>
+                        <a href="">
+                            <p>Surgical</p>
+                        </a>
+                        <a href="">
+                            <p>Cardiology</p>
+                        </a>
+                        <a href="">
+                            <p>Dental</p>
+                        </a>
+
 
 
                     </div>
                     <div class="col-md-2">
-                        <a href=""><h5 class="text-dark mb-5  ">LINKS</h5></a>
-                        <a href=""><p >Home</p></a>
-                        <a href=""><p>About</p></a>
-                        <a href=""><p>Departments</p></a>
-                        <a href=""><p>Doctors</p></a>
-                        <a href=""><p>Gallery</p></a>
-                        <a href=""><p>Blog</p></a>
-                        <a href=""><p>Contact</p></a>
+                        <a href="">
+                            <h5 class="text-dark mb-5  ">LINKS</h5>
+                        </a>
+                        <a href="">
+                            <p>Home</p>
+                        </a>
+                        <a href="">
+                            <p>About</p>
+                        </a>
+                        <a href="">
+                            <p>Departments</p>
+                        </a>
+                        <a href="">
+                            <p>Doctors</p>
+                        </a>
+                        <a href="">
+                            <p>Gallery</p>
+                        </a>
+                        <a href="">
+                            <p>Blog</p>
+                        </a>
+                        <a href="">
+                            <p>Contact</p>
+                        </a>
 
                     </div>
                     <div class="col-md-2">
-                        <a href=""><h5 class="text-dark mb-5  ">SERVICES</h5></a>
-                        <a href=""><p >Emergency Help</p></a>
-                        <a href=""><p>Qualified Doctors</p></a>
-                        <a href=""><p>Location and Direction</p></a>
-                        <a href=""><p>Medical Treatment</p></a>
-                        
+                        <a href="">
+                            <h5 class="text-dark mb-5  ">SERVICES</h5>
+                        </a>
+                        <a href="">
+                            <p>Emergency Help</p>
+                        </a>
+                        <a href="">
+                            <p>Qualified Doctors</p>
+                        </a>
+                        <a href="">
+                            <p>Location and Direction</p>
+                        </a>
+                        <a href="">
+                            <p>Medical Treatment</p>
+                        </a>
+
                     </div>
                     <div class="col-md-3">
                         <h5 class="text-dark mb-5  ">HAVE A QUESTION?</h5>
-                        <p ><i class="fa fa-map-marker mr-3 border border-info p-1 " aria-hidden="true"></i> <a href="">Location</a> </p>
+                        <p><i class="fa fa-map-marker mr-3 border border-info p-1 " aria-hidden="true"></i> <a
+                                href="">Location</a> </p>
                         <p class="text-secondary ml-5">198 West 21th Street, Suite 721 New York NY 10016</p>
-                        <p ><i class="fa fa-fax mr-3 fa-1x border border-info p-1" ></i> <a href="">Free Call +1 234 456 78910</a> </p>
-                    <p class="text-secondary ml-5">Call Us Now 24/7 Customer Support</p>
+                        <p><i class="fa fa-fax mr-3 fa-1x border border-info p-1"></i> <a href="">Free Call +1 234 456
+                                78910</a> </p>
+                        <p class="text-secondary ml-5">Call Us Now 24/7 Customer Support</p>
                     </div>
                 </div>
             </div>
@@ -113,13 +170,13 @@
     </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    {{!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    {{!--
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script> --}}
-        {{!-- <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous"></script> --}}
+    {{!--
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
