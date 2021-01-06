@@ -1,48 +1,63 @@
 <div class="section">
     <div class="container mb-5">
-        <div class="col-md-6 m-auto">   
+        <div class="col-md-6 m-auto">
             <h2 class="text-center">Create new Account</h2>
             <form action="/signup" method="post" class="mt-5 pl-5" enctype="multipart/form-data">
-                
+
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="userName"  required >
+                    <input type="text" class="form-control" name="displayName" required>
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="number" class="form-control" name="userAge" required >
+                    <input type="number" class="form-control" name="userAge" required>
                 </div>
-                <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="text" class="form-control" name="userMobile" required >
+                <label for="gender" class="mr-3" >Select Gender</label>
+                <div class="form-check-inline">
+                    
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="userGender">Male
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="userGender">Female
+                    </label>
                 </div>
                 
-               
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="text" class="form-control" name="userMobile" required>
+                </div>
+
+
                 <div class="form-group">
                     <label for="email">Email address:</label>
-                    <input type="email" class="form-control" placeholder="Enter email" name="userEmail" value = "" required >
+                    <input type="email" class="form-control" placeholder="Enter email" name="userEmail" value=""
+                        required>
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required >
+                    <input type="password" class="form-control" placeholder="Enter password" name="userPassword"
+                        required>
                 </div>
 
                 <small class="text-muted float-right">
                     Already have an account? <a href="user/user-login" class="ml-2">Login</a>
                 </small>
-                 <input type="hidden" id="Status" name="Status" value="Active">
-                 <input type="hidden" id="imagePresent" name="imagePresent" value="true" >
+                <input type="hidden" id="Status" name="Status" value="Active">
+                <input type="hidden" id="imagePresent" name="imagePresent" value="true">
 
                 <div class="form-group">
-                        <label for="">Image</label>
-                        <input type="file" name="Image" id="Image" class="form-control-file" required>
+                    <label for="">Image</label>
+                    <input type="file" name="Image" id="Image" class="form-control-file" required>
 
                 </div>
                 <div class=" pb-5">
                     <button type="submit" class="btn btn-primary float-right ">Submit</button>
                 </div>
 
-                
+
             </form>
         </div>
     </div>

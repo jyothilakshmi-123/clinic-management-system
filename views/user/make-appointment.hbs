@@ -29,7 +29,7 @@
                             </div>
                             <div class="modal-body   ">
                                 <p>Your appointment for {{doctor.drName}} has been confirmed</p>
-                                <p>Booking for : {{user.userName}}</p>
+                                <p>Booking for : {{user.displayName}}</p>
 
                             </div>
                             <div class="modal-footer">
@@ -77,14 +77,24 @@
                         <div class="container mt-5">
                             <label for="">Select a Date :</label>
                             <input type="date" id="Date" name="dateOfBooking">
+                            {{!-- <label class="mr-sm-2" for="inlineFormCustomSelect">Select a session</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Choose...</option>
+                                <option value="1">Morning</option>
+                                <option value="2">Afternoon</option>
+                                <option value="3">Evening</option>
+                            </select> --}}
                             <label for="appt">Choose a time :</label>
 
-                            <input type="time" id="Time" name="timeOfBooking" min="09:00" max="18:00" required>
+                            <input type="time" id="Time" class="timepicker" name="timeOfBooking" min="09:30" max="16:30"
+                                required>
+                            
+
                         </div>
                         <input type="hidden" id="Status" name="Status" value="Pending">
                         <input type="hidden" id="drName" name="drName" value="{{doctor.drName}}">
                         <input type="hidden" id="drId" name="dr_id" value="{{doctor._id}}">
-                        <input type="hidden" id="userName" name="userName" value="{{user.userName}}">
+                        <input type="hidden" id="displayName" name="displayName" value="{{user.displayName}}">
                         <input type="hidden" id="userMobile" name="userMobile" value="{{user.userMobile}}">
                         <input type="hidden" id="userAge" name="userAge" value="{{user.userAge}}">
                         <input type="hidden" id="userId" name="user_id" value="{{user._id}}">
@@ -114,4 +124,16 @@
             }
         })
     })
+
+
+    
 </script>
+{{!-- <script>
+    $( document ).ready(function() {
+  $('#input-limited-range').pickatime({
+    twelvehour: true,
+    min: "8:20am",
+    max: "5:15pm"
+  });
+});
+</script> --}}

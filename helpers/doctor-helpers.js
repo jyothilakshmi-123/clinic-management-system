@@ -93,9 +93,24 @@ module.exports = {
             resolve(Drprescription)
         })
     },
-    updateDoctor: (drId, drDetails) => {
+    showHistory: (details) => {
+        console.log("in show history......")
+        console.log(details)
+        console.log(details.doctor)
         
-        return new Promise(async(resolve, reject) => {
+        // var drId1 = {drId:details.doctor}
+        // var userId1 = {userId:details.user}
+        return new Promise(async (resolve, reject) => {
+            let userHistory = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({$and:[{drId:details.doctor},{userId:details.user}]}).toArray()
+            console.log("History  is after db.......")
+            console.log(userHistory)
+            
+            resolve(userHistory)
+        })
+    },
+    updateDoctor: (drId, drDetails) => {
+
+        return new Promise(async (resolve, reject) => {
             drDetails.drPassword = await bcrypt.hash(drDetails.drPassword, 10)
             db.get().collection(collection.DOCTOR_COLLECTIION)
                 .updateOne({ _id: objectId(drId) }, {
@@ -120,7 +135,7 @@ module.exports = {
             let response = {}
             var activeDoctor = { Status: "Active" }
             var blockedDoctor = { Status: "Blocked" }
-            let doctor = await db.get().collection(collection.DOCTOR_COLLECTIION).findOne({$or: [{activeDoctor},{blockedDoctor},{ drEmail: doctorData.drEmail }]})
+            let doctor = await db.get().collection(collection.DOCTOR_COLLECTIION).findOne({ $or: [{ activeDoctor }, { blockedDoctor }, { drEmail: doctorData.drEmail }] })
             if (doctor) {
                 bcrypt.compare(doctorData.drPassword, doctor.drPassword).then((authenticatedDoctor) => {
                     if (authenticatedDoctor) {
@@ -129,11 +144,11 @@ module.exports = {
                         if (doctor.Status === 'Active') {
                             response.active = true
                             resolve(response)
-                        }else{
+                        } else {
                             response.active = false
                             resolve(response)
                         }
-                        
+
                     }
                     else {
                         resolve({ authenticatedDoctor: false })
@@ -206,6 +221,7 @@ module.exports = {
                         }
 
                     })
+
                     resolve()
 
                 })
@@ -272,23 +288,54 @@ module.exports = {
     },
     collectMyPatients: (doctorId) => {
         return new Promise(async (resolve, reject) => {
-            var doctorridd = { dr_id: doctorId }
-            var myPatients = { Status: "Consulted" }
+            let result = [];
+            let resp = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ dr_id: doctorId }).toArray()
+            result.push(resp[0])
 
-            let myPatientslist = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ $and: [doctorridd, myPatients] }).toArray()
-            {
-                resolve(myPatientslist)
+            if (resp.length > 1) {
+                let i;
+                for (i = 1; i < resp.length; i++) {
+                    let j;
+                    let flag = true;
+                    innerLoop: for (j = 0; j < result.length; j++) {
+                        if (resp[i].user_id === result[j].user_id) {
+                            flag = false;
+                            break innerLoop;
+                        }
+                    }
+                    if(flag){
+                        result.push(resp[i]);
+                    }
+                    
+                };
             }
+
+            resolve(result)
+
         })
     },
     collectPrescription: (drId) => {
         return new Promise(async (resolve, reject) => {
-            //  var useridd =    {userId : userId }
-
-            let prescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ drId: drId }).toArray()
+            let result = []
+            let resp= await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ drId: drId }).toArray()
             {
-                resolve(prescription)
-
+                result.push(resp[0])
+                let i;
+                for(i=1;i<resp.length;i++){
+                    flag = true
+                    let j;
+                    innerLoop:for(j=0;j<result.length;j++){
+                        if(resp[i].userId === result[j].userId){
+                            flag = false
+                            break innerLoop
+                        }
+                        
+                    }
+                    if(flag){
+                        result.push(resp[i])
+                    }
+                }
+                resolve(result)
             }
         })
     },

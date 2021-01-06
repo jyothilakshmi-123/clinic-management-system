@@ -14,6 +14,9 @@
                             <div class="modal-body  ">
                                 <div style="text-align: center;">
                                     <h1>Appointment Graph </h1>
+                                    
+                                    <h2>{{response.Confirmed}}</h2>
+                                    
                                     <div id="d3-container" />
                                 </div>
                             </div>
@@ -194,7 +197,7 @@
                                 {{!-- <th scope="row">3</th> --}}
 
                                 <td><img class="mr-2" style="width: 50px; height: 50px "
-                                        src="/user-images/{{this._id}}.jpg" alt="">{{this.userName}}</td>
+                                        src="/user-images/{{this._id}}.jpg" alt="">{{this.displayName}}</td>
                                 <td>{{this.userAge}}</td>
                                 <td>{{this.userMobile}}</td>
 
@@ -227,45 +230,49 @@
             <div class="tabcontent" id="Appointments">
                 <div class="container">
                     <h3 class="text-center font-weight-bold mt-4 mb-4">List of Appointments</h3>
-                    {{!-- <div class="row"> --}}
-                        {{!-- <h4><a href="#" class=" mr-auto btn btn-outline-info " style="color: teal;"><i
-                                    class="fa fa-table  mr-3 fa-1x"></i>Add Appointments</a></h4> --}}
+                    <div class="row  ">
+                        
 
-                        {{!-- <form class="form-inline my-2 my-lg-0 m-auto">
-                            <input id="search3" name="search" placeholder="live search" type="text"
-                                data-list=".data-list">
-
-                        </form> --}}
-                        {{!--
-                    </div> --}}
-                    <div class="row">
-                        {{#each appointmentList}}
-                        <div class="col-md-4 ">
-                            <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
-                                <div class="card-header ">
-                                    <img class=" float-left rounded-circle  border card-image "
-                                        style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg"
-                                        alt="">
-                                    <h3 class="float-right mt-4 ml-1">{{this.drName}}</h3>
-                                </div>
-                                <div class="card-body ">
-
-                                    <p>Appointment Date : {{this.dateOfBooking}}</p>
-                                    <p>Appointment Time : {{this.timeOfBooking}}</p>
-                                    <p>Booking For : {{this.userName}}</p>
-                                    {{!-- <button type="button" class="  mt-3 mb-3 p-2"
-                                        style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
-                                        an Appointment</button> --}}
-                                </div>
-
-
-
-
-
-                            </div>
-                        </div>
-                        {{/each}}
+                        <form class="form-inline my-2 my-lg-0 ml-auto">
+                            <input type="text" name="search3" id="search3" class="form-control" />
+                            {{!-- <input class="form-control mr-sm-2 ml-auto" type="search"
+                                placeholder="Search Patients">
+                            <button class="btn btn-outline-success " type="submit">Search </button> --}}
+                        </form>
                     </div>
+                    <table class="table mt-4  border p-3 mb-5" id="user_table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Patient Name</th>
+                                <th scope="col">Patient Age</th>
+                                <th scope="col">Mobile Number</th>
+                                <th scope="col">Account Status</th>
+                                {{!-- <th scope="col">Price</th> --}}
+                                <th scope="col">Doctor Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each appointmentList }}
+                            <tr>
+                                {{!-- <th scope="row">3</th> --}}
+
+                                <td><img class="mr-2" style="width: 50px; height: 50px "
+                                        src="/user-images/{{this.user_id}}.jpg" alt="">{{this.displayName}}</td>
+                                <td>{{this.userAge}}</td>
+                                <td>{{this.userMobile}}</td>
+
+                                <td><a class="block-user " style="color: green;"
+                                       >
+                                        {{this.Status}}
+                                    </a></td>
+                                <td>{{this.drName}}</td>
+                                
+
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -394,6 +401,27 @@
     });
     $(document).ready(function () {
         $('#search2').keyup(function () {
+            search_table($(this).val());
+        });
+        function search_table(value) {
+            $('#user_table tr').each(function () {
+                var found = 'false';
+                $(this).each(function () {
+                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                        found = 'true';
+                    }
+                });
+                if (found == 'true') {
+                    $(this).show();
+                }
+                else {
+                    $(this).hide();
+                }
+            });
+        }
+    });
+    $(document).ready(function () {
+        $('#search3').keyup(function () {
             search_table($(this).val());
         });
         function search_table(value) {

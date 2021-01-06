@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
           return done(null, user); // user found, return that user  
         }
         else {
-          db.get().collection(collection.USER_COLLECTION).insertOne({ 'userName': profile.displayName, 'userEmail': profile._json.email })
+          db.get().collection(collection.USER_COLLECTION).insertOne({ 'displayName': profile.displayName, 'userEmail': profile._json.email })
         }
         return done(null, profile)
 
@@ -67,7 +67,7 @@ passport.use(new facebookStrategy({
           return done(null, user); // user found, return that user  
         }
         else {
-          db.get().collection(collection.USER_COLLECTION).insertOne({ 'userName': profile.displayName, 'userEmail': profile._json.email,'id':profile._json.id })
+          db.get().collection(collection.USER_COLLECTION).insertOne({ 'displayName': profile.displayName, 'userEmail': profile._json.email,'id':profile._json.id })
         }
         return done(null, profile)
       }

@@ -24,8 +24,9 @@ const verifyLogin = (req, res, next) => {
   }
 }
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res, next) {     
   let user = req.user
+  // console.log(req.user.displayName)
 
   let doctorsList = doctorHelpers.getActiveDoctorsList().then((doctorsList) => {
     res.render('user/home', { doctorsList, user });
@@ -43,9 +44,6 @@ router.post('/user-login', passport.authenticate('local',
 
   }
 );
-
-
-
 router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
@@ -55,10 +53,9 @@ router.post('/signup', (req, res) => {
     var id = response._id
     image.mv('./public/user-images/' + id + '.jpg', (err, done) => {
       if (!err) {
-        req.user =response
-        // req.session = true
+        console.log(response)
         req.user = true
-        res.redirect('/')
+        res.redirect('/user-login')
       }
       else {
         console.log(err)
@@ -189,6 +186,13 @@ router.post('/edit-user/:id', (req, res) => {
       image.mv('./public/user-images/' + id + '.jpg')
     }
   })
+})
+router.post('/export-to-excel', (req, res, next) => {
+  userHelpers.exportToExcel(req.body).then((response) => {
+    res.json(response)
+    // res.redirect('/doctor/doctor-home')
+  })
+
 })
 
 module.exports = router;

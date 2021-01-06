@@ -48,7 +48,7 @@ app.use(fileUpload())
 app.use(session({secret:"Key",
                 resave: true,
                 saveUninitialized: true,
-                 cookie:{maxAge:6000000}}));
+                 cookie:{maxAge:6000000000000}}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

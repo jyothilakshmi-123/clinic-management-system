@@ -37,7 +37,7 @@ module.exports = {
     },
     getAppointmentList: () => {
         return new Promise(async (resolve, reject) => {
-            appointmentList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ Status: "Confirmed" }).toArray()
+            appointmentList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find().toArray()
             resolve(appointmentList)
         })
     },

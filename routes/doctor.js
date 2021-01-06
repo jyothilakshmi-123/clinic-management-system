@@ -61,8 +61,6 @@ router.get('/doctor-home', function (req, res, next) {
               doctorHelpers.collectMyPatients(req.session.doctor._id).then((myPatients) => {
                 doctorHelpers.collectPrescription(req.session.doctor._id).then((prescriptions) => {
 
-
-
                   res.render('doctor/doctor-home', {
                     doctor, todaysConfirmedAppointments, upcomingConfirmedAppointments, expiredAppointments,
                     consultedAppointments, pendingAppointments, cancelledAppointments, myPatients, prescriptions
@@ -97,6 +95,16 @@ router.post('/cancel-appointment', (req, res, next) => {
 })
 router.post('/export-to-excel', (req, res, next) => {
   doctorHelpers.exportToExcel(req.body).then((response) => {
+    res.json(response)
+    // res.redirect('/doctor/doctor-home')
+  })
+
+})
+router.post('/show-history', (req, res, next) => {
+
+  console.log(req.body.user)
+  console.log(req.body.doctor)
+  doctorHelpers.showHistory(req.body).then((response) => {
     res.json(response)
     // res.redirect('/doctor/doctor-home')
   })

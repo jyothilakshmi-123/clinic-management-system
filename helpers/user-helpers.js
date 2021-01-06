@@ -75,7 +75,7 @@ module.exports = {
             db.get().collection(collection.USER_COLLECTION)
                 .updateOne({ _id: objectId(userId) }, {
                     $set: {
-                        userName: userDetails.userName,
+                        displayName: userDetails.displayName,
                         userAge: userDetails.userAge,
                         userMobile: userDetails.userMobile,
                         userPassword: userDetails.userPassword
@@ -84,6 +84,16 @@ module.exports = {
                 }).then((response) => {
                     resolve()
                 })
+        })
+    },
+    exportToExcel: (userId) => {
+        console.log(userId)
+        return new Promise(async (resolve, reject) => {
+            let Userprescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ userId: userId.user }).toArray()
+            console.log("Userprescription is.......")
+            console.log(Userprescription)
+            console.log(Userprescription)
+            resolve(Userprescription)
         })
     },
     doSignup: (userData) => {
@@ -164,7 +174,7 @@ module.exports = {
     collectPrescription: (userId) => {
         return new Promise(async (resolve, reject) => {
             let prescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ userId: userId }).toArray()
-            {
+            { 
                 resolve(prescription)
             }
         })
