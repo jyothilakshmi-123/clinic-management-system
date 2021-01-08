@@ -26,7 +26,7 @@ var fileUpload = require('express-fileupload');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 // we create a new folder for default layout and for partials,here we set the path
-app.engine( 'hbs', hbs( {
+app.engine('hbs', hbs({
   extname: 'hbs',
   defaultLayout: 'layout',
   layoutsDir: __dirname + '/views/layout/',
@@ -45,32 +45,34 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload())
-app.use(session({secret:"Key",
-                resave: true,
-                saveUninitialized: true,
-                 cookie:{maxAge:6000000000000}}));
+app.use(session({
+  secret: "Key",
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 1000 * 60 * 60 * 24}
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   next();
 });
 app.use(bodyParser.urlencoded({ extended: false }));
- 
+
 // parse application/json
 app.use(bodyParser.json());
 
 
 
-db.connect((err)=>{
-  if(err){
-    console.log("connection error"+err)
+db.connect((err) => {
+  if (err) {
+    console.log("connection error" + err)
   }
-  else{
+  else {
     console.log("database connected to the port 27017")
   }
 })
@@ -80,12 +82,12 @@ app.use('/admin', adminRouter);
 app.use('/doctor', doctorRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

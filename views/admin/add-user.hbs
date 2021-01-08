@@ -16,13 +16,25 @@
 
                     <label for="mobile">Mobile Number</label>
                     <input type="text" class="form-control" name="userMobile">
+                    <label for="gender" class="mr-3">Select Gender</label>
+                    <div class="form-check-inline">
+
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="userGender"value="Male">Male
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="userGender"value="Female">Female
+                        </label>
+                    </div>
                     <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" placeholder="Enter email" name="userEmail">
+                        <input type="email" class="form-control" placeholder="Enter email" name="userEmail" required>
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" placeholder="Enter password" name="userPassword">
+                        <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required>
                     </div>
 
                     <div class="form-group">

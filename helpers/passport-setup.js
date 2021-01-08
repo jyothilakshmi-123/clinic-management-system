@@ -84,20 +84,15 @@ passport.use(new LocalStrategy({
   passwordField: 'userPassword'
 },
   function (userEmail, userPassword, done) {
-    console.log("login......")
-    console.log(userEmail)
-    console.log(userPassword)
+    // console.log("login......")
+    // console.log(userEmail)
+    // console.log(userPassword)
     db.get().collection(collection.USER_COLLECTION).findOne({ userEmail: userEmail }, function (err, user) {
       if (user) {
         if (user.userPassword) {
           bcrypt.compare(userPassword, user.userPassword).then((status) => {
             if (status) {
-              console.log("login success")
-              // response.user = user
-              // response.status = true
-              // resolve(response)
-              console.log("printing user------------")
-              // console.log(user)
+              
               return done(null, user);
             }
             else {

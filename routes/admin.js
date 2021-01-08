@@ -152,15 +152,18 @@ router.get('/add-user', (req, res) => {
   res.render('admin/add-user')
 })
 router.post('/add-user', (req, res) => {
-  // console.log(req.files.Image)
-  userHelpers.addUser(req.body).then((id) => {
+  console.log("image first.......")
+  console.log(req.files.Image)
+  userHelpers.addUser(req.body).then((response) => {
     let image = req.files.Image
+    console.log("image is.......")
+    var id = response._id
     image.mv('./public/user-images/' + id + '.jpg', (err, done) => {
       if (!err) {
         res.redirect('/admin/admin-home')
       }
       else {
-        // console.log(err)
+        console.log(err)
       }
     })
   })

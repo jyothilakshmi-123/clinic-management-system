@@ -3,16 +3,28 @@ var collection = require('../config/collections')
 var objectId = require('mongodb').ObjectID
 const bcrypt = require('bcrypt')
 var dateFormat = require("dateformat");
+const { response } = require('express')
 
 module.exports = {
-    addUser: (user) => {
-        console.log(user)
+    doSignup: (userData) => {
+        console.log(userData)
         return new Promise(async (resolve, reject) => {
-            user.userPassword = await bcrypt.hash(user.userPassword, 10)
-            db.get().collection(collection.USER_COLLECTION).insertOne(user).then((data) => {
-                console.log(data)
-                resolve(data.ops[0])
-            })
+            userData.userPassword = await bcrypt.hash(userData.userPassword, 10)
+            let userEmail = await db.get().collection(collection.USER_COLLECTION).findOne({ userEmail: userData.userEmail })
+            let userPhone = await db.get().collection(collection.USER_COLLECTION).findOne({ userMobile: userData.userMobile })
+            if (!userEmail && !userPhone) {
+                userData.user = true
+                db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((response) => {
+                    resolve(response.ops[0])
+                })
+                // Validations
+
+            } else {
+                console.log("Phone number or Email address is already exixt")
+                response.error = true
+                // re.flash('error', 'Your account is exists. Please log in.');
+                resolve(response, { message: 'Your account is exists. Please log in.' })
+            }
         })
 
 
@@ -70,7 +82,7 @@ module.exports = {
 
     },
     updateUser: (userId, userDetails) => {
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             userDetails.userPassword = await bcrypt.hash(userDetails.userPassword, 10)
             db.get().collection(collection.USER_COLLECTION)
                 .updateOne({ _id: objectId(userId) }, {
@@ -96,7 +108,7 @@ module.exports = {
             resolve(Userprescription)
         })
     },
-    doSignup: (userData) => {
+    addUser: (userData) => {
         return new Promise(async (resolve, reject) => {
             userData.userPassword = await bcrypt.hash(userData.userPassword, 10)
             db.get().collection(collection.USER_COLLECTION).insertOne(userData).then((data) => {
@@ -108,10 +120,23 @@ module.exports = {
 
     },
     makeAppointment: (book) => {
+        console.log(book)
         return new Promise(async (resolve, reject) => {
-            db.get().collection(collection.APPOINTMENT_COLLECTION).insertOne(book).then((data) => {
-                resolve(data)
-            })
+
+            var sameDr = { dr_id : book.dr_id }
+            var sameDate = { dateOfBooking: book.dateOfBooking }
+            var sameTime = { timeOfBooking: book.timeOfBooking }
+            let appointment = await db.get().collection(collection.APPOINTMENT_COLLECTION).findOne({ $and: [sameDr, sameDate, sameTime] })
+            if (!appointment) {
+                db.get().collection(collection.APPOINTMENT_COLLECTION).insertOne(book).then((data) => {
+                    resolve(data)
+                })
+            } else {
+                response.error = true
+                // re.flash('error', 'Your account is exists. Please log in.');
+                resolve(response, { message: 'This time slot is not available now, You can select another time' })
+
+            }
         })
     },
     collectCurrentBookedAppointments: (userId) => {
@@ -174,10 +199,10 @@ module.exports = {
     collectPrescription: (userId) => {
         return new Promise(async (resolve, reject) => {
             let prescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ userId: userId }).toArray()
-            { 
+            {
                 resolve(prescription)
             }
         })
     },
-    
+
 }

@@ -14,7 +14,7 @@ module.exports = {
         console.log(doctor)
 
         return new Promise(async (resolve, reject) => {
-            doctor.drPassword = await bcrypt.hash(doctor.drPassword, 10)
+            doctor.Doctor_Password = await bcrypt.hash(doctor.Doctor_Password, 10)
             db.get().collection(collection.DOCTOR_COLLECTIION).insertOne(doctor).then((data) => {
                 console.log(data)
                 resolve(data.ops[0]._id)
@@ -84,6 +84,7 @@ module.exports = {
         })
     },
     exportToExcel: (drId) => {
+        console.log("docr id is.......")
         console.log(drId)
         return new Promise(async (resolve, reject) => {
             let Drprescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ drId: drId.dr }).toArray()
@@ -111,15 +112,15 @@ module.exports = {
     updateDoctor: (drId, drDetails) => {
 
         return new Promise(async (resolve, reject) => {
-            drDetails.drPassword = await bcrypt.hash(drDetails.drPassword, 10)
+            drDetails.Doctor_Password = await bcrypt.hash(drDetails.Doctor_Password, 10)
             db.get().collection(collection.DOCTOR_COLLECTIION)
                 .updateOne({ _id: objectId(drId) }, {
                     $set: {
-                        drName: drDetails.drName,
-                        drSpecialised: drDetails.drSpecialised,
-                        drSpeciality: drDetails.drSpeciality,
-                        drPassword: drDetails.drPassword,
-                        drEmail: drDetails.drEmail
+                        Doctor_Name: drDetails.Doctor_Name,
+                        Doctor_Specialised: drDetails.Doctor_Specialised,
+                        Doctor_Speciality: drDetails.Doctor_Speciality,
+                        Doctor_Password: drDetails.Doctor_Password,
+                        Doctor_Email: drDetails.Doctor_Email
                     }
 
                 }).then((response) => {
@@ -135,9 +136,9 @@ module.exports = {
             let response = {}
             var activeDoctor = { Status: "Active" }
             var blockedDoctor = { Status: "Blocked" }
-            let doctor = await db.get().collection(collection.DOCTOR_COLLECTIION).findOne({ $or: [{ activeDoctor }, { blockedDoctor }, { drEmail: doctorData.drEmail }] })
+            let doctor = await db.get().collection(collection.DOCTOR_COLLECTIION).findOne({ $or: [{ activeDoctor }, { blockedDoctor }, { Doctor_Email: doctorData.Doctor_Email }] })
             if (doctor) {
-                bcrypt.compare(doctorData.drPassword, doctor.drPassword).then((authenticatedDoctor) => {
+                bcrypt.compare(doctorData.Doctor_Password, doctor.Doctor_Password).then((authenticatedDoctor) => {
                     if (authenticatedDoctor) {
                         response.doctor = doctor
                         response.authenticatedDoctor = true
@@ -335,7 +336,9 @@ module.exports = {
                         result.push(resp[i])
                     }
                 }
+                
                 resolve(result)
+
             }
         })
     },

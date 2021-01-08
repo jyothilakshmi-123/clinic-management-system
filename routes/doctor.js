@@ -22,8 +22,8 @@ router.get('/', function (req, res, next) {
 
 });
 router.post('/', function (req, res) {
-  var email = req.body.drEmail;
-  var password = req.body.drPassword;
+  var email = req.body.Doctor_Email;
+  var password = req.body.Doctor_Password;
   doctorHelpers.doDoctorLogin(req.body)
     .then((response) => {
       if (response.authenticatedDoctor) {
@@ -94,6 +94,8 @@ router.post('/cancel-appointment', (req, res, next) => {
 
 })
 router.post('/export-to-excel', (req, res, next) => {
+  console.log("Excel........")
+  console.log(req.body)
   doctorHelpers.exportToExcel(req.body).then((response) => {
     res.json(response)
     // res.redirect('/doctor/doctor-home')
@@ -126,4 +128,9 @@ router.post('/edit-doctor/:id', (req, res) => {
 })
 
 
-module.exports = router; 
+module.exports = router;
+
+
+
+// ---------------
+

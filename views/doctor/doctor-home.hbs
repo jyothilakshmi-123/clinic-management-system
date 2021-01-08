@@ -46,7 +46,7 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     {{#if doctor}}
-                    {{doctor.drName}}
+                    {{doctor.Doctor_Name}}
 
                     {{/if}}
 
@@ -98,6 +98,19 @@
                                             </div>
 
                                         </div>
+                                        <div class="row mt-5 ">
+                                            <div class="col">
+                                                <label for="comment">Phone</label>
+                                                <input type="text" class="form-control" name="userMobile"
+                                                    value="{{this.userMobile}}">
+                                            </div>
+                                            <div class="col">
+                                                <label for="comment">Gender</label>
+                                                <input type="text" class="form-control" name="userGender"
+                                                    value="{{this.userGender}}">
+                                            </div>
+
+                                        </div>
                                         <div class="row mt-5">
                                             <div class="col">
 
@@ -122,12 +135,17 @@
                                         <textarea name="userNotes" placeholder=" Prescription Notes"
                                             style="width: 100%;" id="userNotes" cols="10" rows="5"></textarea>
                                         <input type="hidden" id="drId" name="drId" value="{{this.dr_id}}">
-                                        <input type="hidden" id="drName" name="drName" value="{{this.drName}}">
+                                        <input type="hidden" id="Doctor_Name" name="Doctor_Name"
+                                            value="{{this.Doctor_Name}}">
+                                        <input type="hidden" id="Doctor_Speciality" name="Doctor_Speciality"
+                                            value="{{this.Doctor_Speciality}}">
                                         <input type="hidden" id="userId" name="userId" value="{{this.user_id}}">
                                         <input type="hidden" id="appointmentId" name="appointmentId"
                                             value="{{this._id}}">
                                         <input type="hidden" id="dateOfBooking" name="dateOfBooking"
                                             value="{{this.dateOfBooking}}">
+                                        <input type="hidden" id="timeOfBooking" name="timeOfBooking"
+                                            value="{{this.timeOfBooking}}">
 
 
                                         <div class="row mt-4 ">
@@ -158,7 +176,8 @@
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close mr-auto" data-dismiss="modal" style="color: rgb(21, 21, 163); " aria-label="Close">
+                                <button type="button" class="close mr-auto" data-dismiss="modal"
+                                    style="color: rgb(21, 21, 163); " aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
 
@@ -178,20 +197,24 @@
     <div class="row">
         <div class="col-md-2  ml-5 mb-5 " style="padding-right: 0px; background-color: lightblue; height: 350px;">
             <div class=" row">
+
                 <div class="personalDetails  ">
                     <ul><img style="width: 130px;
                     height: 140px;
                     border-radius: 50%;" class=" mb-3 mt-5  " src="/doctor-images/{{doctor._id}}.jpg" alt=""></ul>
                     {{!-- <ul class="pt-5 "><i class="fas fa-user fa-3x"></i></ul> --}}
+
                     <ul class=" pl-5 ">
-                        <h4>{{doctor.drName}}</h4>
+                        <h4>{{doctor.Doctor_Name}}</h4>
                     </ul>
-                    <ul class="text-dark">{{doctor.drEmail}}</ul>
-                </div>
-                <div class="text-center">
-                    <a class="ml-5" href="/doctor/edit-doctor/{{doctor._id}}">
+                    <p class="text-dark text-center p-1"><small>{{doctor.Doctor_Email}}</small></p>
+                    <a class="ml-2 btn-info btn-block text-center" style="color: #fff; border-radius: 10px; "
+                        href="/doctor/edit-doctor/{{doctor._id}}">
                         Edit Profile </a>
                 </div>
+
+
+
 
                 {{!-- <div class="row" style="padding-right: 0px; height: 200px; background-color: teal;">
 
@@ -489,15 +512,21 @@
                     <div class="col-md-4 ">
                         <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
                             <div class="card-header ">
-                                <img class=" float-left rounded-circle  border card-image "
+                                <img class=" float-left rounded-circle  border card-image mr-3"
                                     style="height: 80px; width: 80px;" src="/user-images/{{this.user_id}}.jpg" alt="">
-                                <h3 class="float-right mt-4 ml-1">{{this.displayName}}</h3>
+                                <div class="float-right">
+                                    <h3 class=" ">{{this.displayName}}</h3>
+                                    <small class="mr-2">Age:{{this.userAge}}</small>
+                                    <small>Gender:{{this.userGender}}</small><br>
+                                    <small>Phone:{{this.userMobile}}</small>
+                                </div>
+
                             </div>
                             <div class="card-body ">
 
                                 <p>Appointment Date : {{this.dateOfBooking}}</p>
                                 <p>Appointment Time : {{this.timeOfBooking}}</p>
-                                <p>Booking For : {{this.drName}}</p>
+                                <p>Booking For : {{this.Doctor_Name}}</p>
                                 {{!-- <button type="button" class="  mt-3 mb-3 p-2"
                                     style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
                                     an Appointment</button> --}}
@@ -525,27 +554,33 @@
 
 
                     {{#each prescriptions}}
-                    <div class="col-md-4">
+                    <div class="col-md-4 ">
                         <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
                             <div class="card-header ">
                                 <img class=" float-left rounded-circle  border card-image mr-3"
-                                    style="height: 80px; width: 80px;" src="/user-images/{{this.userId}}.jpg"
-                                    data-toggle="modal" data-target="#history"
-                                    onclick="showHistory('{{this.userId}}','{{this.drId}}')" alt="">
-                                <h3 class=" ">{{this.displayName}}</h3>
-                                <small class="mr-2">Age:{{this.userAge}}</small>
-                                <small>Gender:{{this.userGender}}</small><br>
-                                <small>Phone:{{this.userMobile}}</small>
+                                    style="height: 80px; width: 80px;" src="/user-images/{{this.userId}}.jpg">
+                                <div class="float-right">
+                                    <h3 class=" ">{{this.displayName}}</h3>
+
+                                    <small class="">Age:{{this.userAge}}</small><br>
+                                    <small>Gender:{{this.userGender}}</small><br>
+                                    <small>Phone:{{this.userMobile}}</small>
+                                </div>
 
                             </div>
                             <div class="card-body ">
                                 <p> <strong>Date of Appointment :</strong> {{dateOfBooking}}</p>
-                                <p><strong>Session of Appointment :</strong></p>
+                                <p><strong>Time of Appointment :</strong>{{timeOfBooking}}</p>
                                 <strong> Medicines :</strong>
                                 {{#each this.userPrescription}}
                                 <li class="ml-5">{{this}}</li>
                                 {{/each}}
                                 <p><strong>Notes :</strong>{{this.userNotes}}</p>
+                                <div class="btn-info btn-block text-center p-1"
+                                    style="color: #fff; border-radius: 10px; background-color: rgb(20, 20, 105);"
+                                    data-toggle="modal" data-target="#history"
+                                    onclick="showHistory('{{this.userId}}','{{this.drId}}')" alt="">History of Patient
+                                </div>
                             </div>
 
                         </div>
@@ -559,17 +594,6 @@
 
     </div>
 </section>
-
-
-
-{{!--
-<script>
-    var Handlebars = require('handlebars');
-
-    Handlebars.registerHelper("inc", function (value, options) {
-        return parseInt(value) + 1;
-    });
-</script> --}}
 <script>
     window.onload = function () {
         startTab();
@@ -600,130 +624,21 @@
         document.getElementById(evtName).style.display = "block";
         evt.currentTarget.className += " active";
     }
-    function appointmentConfirm(appointmentId) {
-        if (confirm('Are you sure you want to accept this?')) {
-            $.ajax({
-                url: '/doctor/confirm-appointment',
-                data: {
-                    appointment: appointmentId,
 
-                },
-                method: 'post',
-                success: (response) => {
+</script>
 
-                    window.location.reload()
-                }
-
-            })
-        }
-    }
-    function showHistory(userId, drId) {
-        console.log("history is.....")
-        console.log(userId)
-        console.log(drId)
-
-        $.ajax({
-            url: '/doctor/show-history',
-            data: {
-                user: userId,
-                doctor: drId
-
-            },
-            method: 'post',
-            success: (response) => {
-
-                console.log("printing results..........")
-                console.log(response)
-                console.log("fetching userrdata---")
-                const modaldiv = document.querySelector('.userrData');
-
-                const previusPrescriptions = getPreviousPresccriptions(response);
-                                    
-                const newDiv = ` <div class = "text-center p-2 btn-block" style ="background-color: #96eaf4"><h3>Consultation History</h3></div>
-                <div class=" border-info  mb-3 mt-2 bg-light  " style="border-radius: 10px; ">
-                        <div class="container-fluid border p-3 mt-3 "> 
-                        <div class="row  ml-1 " style="width:100%">
-                            <div class = "col float-left">
-                                <img class=" float-left rounded-circle  border card-image mt-4" style="height: 100px; width: 100px;" src="/user-images/${userId}.jpg" alt="userimageinfo">
-                             </div>
-                             <hr>
-                             
-                            <div class = "col float-right">
-                                 <h3 class="mt-3 ">${response[0].displayName}</h3>
-                                <small class="mr-2"><strong>Age</strong> : ${response[0].userAge}</small><br>
-                                <small><strong>Gender</strong> : ${response[0].gender}</small><br>
-                                <small><strong>Phone</strong> : ${response[0].userMobile}</small>
-                            </div>
-                        </div>
-                        <div class="container-fluid border p-3 mt-3 " style ="background-color: #03a9f40f"> 
-                            ${previusPrescriptions}
-                        </div>
-                        </div>
-
-                    </div>`
-
-
-
-                modaldiv.innerHTML = newDiv;
-                function getPresccriptionItems(_id) {
-                    let i;
-                    let vals = ''
-                    for (i = 0; i < response[0].userPrescription.length; i++) {
-                        vals += `<li class="ml-3">${response[0].userPrescription[i]}</li>`
-                    }
-                    return vals;
-                }
-                function getPreviousPresccriptions(response) {
-                    let i;
-                    let vals = ''
-
-                    for (i = response.length-1; i>=0 ; i--) {
-                        let prescriptionLists = getPresccriptionItems(response[i]._id);
-                        let divBody = ` 
-                                <div>
-                                    <p> <strong>Date of Appointment :</strong> ${response[i].dateOfBooking}</p>
-                                    <p><strong>Session of Appointment : ${response[i].sessionOfAppointment}</strong></p>
-                                    <strong> Medicines : </strong>
-                                    ${prescriptionLists}
-                                    <p><strong>Notes :</strong>${response[i].userNotes}</p>
-                                </div><br><hr>`
-                        vals += `<div class="card-body ">${divBody}</div>`
-                    }
-                    return vals;
-
-                }
-
-
-            }
-
-        })
-
-    }
-
-
-
-    function appointmentCancel(appointmentId) {
-        if (confirm('Are you sure you want to reject this?')) {
-            $.ajax({
-                url: '/doctor/cancel-appointment',
-                data: {
-                    appointment: appointmentId,
-
-                },
-                method: 'post',
-                success: (response) => {
-
-                    window.location.reload()
-                }
-
-            })
-        }
-    }
-
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    const EXCEL_EXTENSION = '.xlsx';
-
-
+<script>
+    $(document).ready(function () {
+        $(".mul-select").select2({
+            placeholder: "medicine", //placeholder
+            tags: true,
+            tokenSeparators: ['/', ',', ';', " "]
+        });
+    })
+</script>
+<script>
+    {{!-- const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+    const EXCEL_EXTENSION = '.xlsx'; --}}
     function excelExport(drId) {
 
         $.ajax({
@@ -749,11 +664,12 @@
                     delete response[el]["userPrescription"];
                     delete response[el]["_id"];
                     delete response[el]["drId"];
-                    delete response[el]["drName"];
+                    delete response[el]["Doctor_Name"];
                     delete response[el]["appointmentId"];
                     delete response[el]["userId"];
                     delete response[el]["submit"];
                 }
+
 
                 const worksheet = XLSX.utils.json_to_sheet(response);
                 const workbook = {
@@ -774,77 +690,6 @@
         const data = new Blob([buffer], { type: EXCEL_TYPE });
         saveAs(data, filename + '_export_' + new Date().getTime() + EXCEL_EXTENSION)
     }
-
-    $(document).ready(function () {
-        $('#search1').keyup(function () {
-            search_table($(this).val());
-        });
-        function search_table(value) {
-            $('#Appointments tr').each(function () {
-                var found = 'false';
-                $(this).each(function () {
-                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        found = 'true';
-                    }
-                });
-                if (found == 'true') {
-                    $(this).show();
-                }
-                else {
-                    $(this).hide();
-                }
-            });
-        }
-    });
-
-    $(document).ready(function () {
-        $('#search2').keyup(function () {
-            search_table($(this).val());
-        });
-        function search_table(value) {
-            $('#Bookings tr').each(function () {
-                var found = 'false';
-                $(this).each(function () {
-                    if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        found = 'true';
-                    }
-                });
-                if (found == 'true') {
-                    $(this).show();
-                }
-                else {
-                    $(this).hide();
-                }
-            });
-
-        }
-    });
-
-
-</script>
-
-<script>
-    $(document).ready(function () {
-        $(".mul-select").select2({
-            placeholder: "medicine", //placeholder
-            tags: true,
-            tokenSeparators: ['/', ',', ';', " "]
-        });
-    })
-</script>
-<script>
-    /*
-* FileSaver.js
-* A saveAs() FileSaver implementation.
-*
-* By Eli Grey, http://eligrey.com
-*
-* License : https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md (MIT)
-* source  : http://purl.eligrey.com/github/FileSaver.js
-*/
-
-    // The one and only way of getting global scope in all environments
-    // https://stackoverflow.com/q/3277182/1008999
     var _global = typeof window === 'object' && window.window === window
         ? window : typeof self === 'object' && self.self === self
             ? self : typeof global === 'object' && global.global === global
@@ -1004,5 +849,4 @@
     if (typeof module !== 'undefined') {
         module.exports = saveAs;
     }
-
 </script>

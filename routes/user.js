@@ -27,13 +27,22 @@ const verifyLogin = (req, res, next) => {
 router.get('/', function (req, res, next) {     
   let user = req.user
   // console.log(req.user.displayName)
-
+  // console.log(req.session)
   let doctorsList = doctorHelpers.getActiveDoctorsList().then((doctorsList) => {
     res.render('user/home', { doctorsList, user });
   })
 });
 router.get('/user-login', (req, res) => {
-  res.render('user/user-login')
+  if(req.query.error){
+    error = req.flash('error'),
+    res.render('user/user-login',{error})
+  }
+  else{
+    res.render('user/user-login')
+
+  }
+  
+  
 })
 router.post('/user-login', passport.authenticate('local',
   {
@@ -41,40 +50,36 @@ router.post('/user-login', passport.authenticate('local',
     failureRedirect: '/user-login',
     failureFlash: true
   }), function (req, res) {
-
+    
   }
 );
 router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
 router.post('/signup', (req, res) => {
-  userHelpers.addUser(req.body).then((response) => {
+  userHelpers.doSignup(req.body).then((response) => {   
     let image = req.files.Image
-    var id = response._id
-    image.mv('./public/user-images/' + id + '.jpg', (err, done) => {
-      if (!err) {
-        console.log(response)
-        req.user = true
-        res.redirect('/user-login')
+    var id = response._id    
+    image.mv('./public/user-images/' + id + '.jpg', (err, done) => {            
+      if (response.error) {
+        var error = response.error
+        req.flash('error', 'Your account is exists. Please log in.');      
+        error = 'Your account is exists. Please log in.'
+        res.redirect('/user-login?err=' +encodeURIComponent(error))
+      } else {
+        req.login(response, function (err) {
+          if (!err) {
+            res.redirect('/');
+          } else {
+            var error = 'Something went wrong. Please login with the Credintials'
+            res.redirect('/user-login?err='+encodeURIComponent(error))
+          }
+        })
       }
-      else {
-        console.log(err)
-      }
+     
     })
-    // res.redirect('/')
-
   })
-
 })
-
-
-// const isGoogleLoggedIn = (req, res, next) => {
-//   if (req.user) {
-//       next();
-//   } else {
-//       res.sendStatus(401);
-//   }
-// }
 
 router.get('/user-home', (req, res) => {
   let user = req.user
@@ -152,15 +157,23 @@ router.post('/verify', function (req, res) {
     }
   })
 });
-router.get('/make-appointment/:id', verifyLogin, async (req, res, next) => {
-  let user = req.user
+router.get('/make-appointment/:id',verifyLogin,  async (req, res, next) => {
+  
+  user = req.user
   let doctor = await doctorHelpers.getDoctorsList(req.params.id)
   // let pt = userHelpers.doLogin (req.body)
-  res.render('user/make-appointment', { doctor, user })
+  res.render('user/make-appointment', { doctor,user })
 })
 router.post('/make-appointment', (req, res) => {
   userHelpers.makeAppointment(req.body).then((response) => {
+    if (response.error) {
+      var error = response.error
+      req.flash('error', 'This time slot is not available now, You can select another time' );
+      error = 'This time slot is not available now, You can select another time' 
+      res.redirect(req.get('referer',{error}));
+    } else {
     res.redirect('/confirmation')
+    }
   })
 })
 router.get('/confirmation', (req, res) => {

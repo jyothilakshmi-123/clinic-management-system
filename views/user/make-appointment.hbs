@@ -28,7 +28,7 @@
 
                             </div>
                             <div class="modal-body   ">
-                                <p>Your appointment for {{doctor.drName}} has been confirmed</p>
+                                <p>Your appointment for {{doctor.Doctor_Name}} has been confirmed</p>
                                 <p>Booking for : {{user.displayName}}</p>
 
                             </div>
@@ -47,6 +47,15 @@
 <section>
     <div class="container text-center mt-3">
         <h3 class="container text-center mt-3" style="color: rgb(116, 11, 75);">BOOK AN APPOINTMENT</h3>
+        {{#if error}}
+        <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+            {{error }}
+            <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {{/if}}
+
         <div class="row">
 
             <div class="col-md-3 " style="height: 550px;">
@@ -54,9 +63,9 @@
                     <div class="card-body text-center">
                         <img class=" rounded-circle  mb-3 border card-image " style="width: 150px; height: 150px "
                             src="/doctor-images/{{doctor._id}}.jpg" alt="">
-                        <h3>{{doctor.drName}}</h3>
-                        <h5>({{doctor.drSpecialised}})</h5>
-                        <p>({{doctor.drSpeciality}})</p>
+                        <h3>{{doctor.Doctor_Name}}</h3>
+                        <h5>({{doctor.Doctor_Specialised}})</h5>
+                        <p>({{doctor.Doctor_Speciality}})</p>
 
 
 
@@ -65,6 +74,7 @@
 
             </div>
             <div class="col-md-9 text-center">
+
                 <form action="/make-appointment" id="#appointment-form" method="post" class="mt-5">
                     <div class="border mt-5 p-3" style="height:450px  ;">
                         <h5 class="border p-2 text-white  "
@@ -74,29 +84,22 @@
                             PM
                             <br>Evening 04:15 PM - 04:30 PM
                         </p>
+
+
                         <div class="container mt-5">
                             <label for="">Select a Date :</label>
                             <input type="date" id="Date" name="dateOfBooking">
-                            {{!-- <label class="mr-sm-2" for="inlineFormCustomSelect">Select a session</label>
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option selected>Choose...</option>
-                                <option value="1">Morning</option>
-                                <option value="2">Afternoon</option>
-                                <option value="3">Evening</option>
-                            </select> --}}
                             <label for="appt">Choose a time :</label>
-
-                            <input type="time" id="Time" class="timepicker" name="timeOfBooking" min="09:30" max="16:30"
-                                required>
-                            
-
+                            <input type="text" id="time"  name="timeOfBooking"/>
                         </div>
                         <input type="hidden" id="Status" name="Status" value="Pending">
-                        <input type="hidden" id="drName" name="drName" value="{{doctor.drName}}">
+                        <input type="hidden" id="Doctor_Name" name="Doctor_Name" value="{{doctor.Doctor_Name}}">
+                        <input type="hidden" id="Doctor_Speciality" name="Doctor_Speciality" value="{{doctor.Doctor_Speciality}}">
                         <input type="hidden" id="drId" name="dr_id" value="{{doctor._id}}">
                         <input type="hidden" id="displayName" name="displayName" value="{{user.displayName}}">
                         <input type="hidden" id="userMobile" name="userMobile" value="{{user.userMobile}}">
                         <input type="hidden" id="userAge" name="userAge" value="{{user.userAge}}">
+                        <input type="hidden" id="userGender" name="userGender" value="{{user.userGender}}">
                         <input type="hidden" id="userId" name="user_id" value="{{user._id}}">
 
 
@@ -108,32 +111,8 @@
                 </form>
 
 
+
             </div>
         </div>
     </div>
 </section>
-<script>
-    $("#appointment-form").submit((e) => {
-        e.preventDefault()
-        $.ajax({
-            url: '/make-appointment',
-            method: 'post',
-            data: $('#appointment-form').serialize(),
-            success: (response) => {
-                window.location.reload()
-            }
-        })
-    })
-
-
-    
-</script>
-{{!-- <script>
-    $( document ).ready(function() {
-  $('#input-limited-range').pickatime({
-    twelvehour: true,
-    min: "8:20am",
-    max: "5:15pm"
-  });
-});
-</script> --}}
