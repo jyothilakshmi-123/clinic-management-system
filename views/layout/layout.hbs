@@ -22,7 +22,6 @@
     <script src="https://kit.fontawesome.com/197d1cb87f.js"></script>
 
 
-
     {{!-- <script src="/javascripts/doctorScript/drExcelSheet.js"></script> --}}
     <script src="/javascripts/doctorScript/drSearch.js"></script>
     <script src="/javascripts/doctorScript/drHistory.js"></script>
@@ -46,28 +45,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
     <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
+
+
     <script src="https://unpkg.com/dropzone"></script>
     <script src="https://unpkg.com/cropperjs"></script>
 
-    <title>Hello, world!</title>
+    <title>Dr Care - Health Experts</title>
 </head>
 
 <body>
     <header>
-        <div class="container">
-            <div class="row pt-5 mb-5">
-                <div class="col-mb-4   mr-5 pr-5">
-                    <a class="  font-weight-bold" style=" color: rgb(15, 201, 201);" href="#"><i
-                            class="fa fa-heartbeat mr-3 fa-4x"></i>Dr CARE</a>
+        <div class="container-fluid">
+            <div class="row pt-2 mb-3">
+                <div class="col-md-4 col-sm-12 col-lg-4 col-12 pt-2 pb-3 text-center">
+                    <a class="  font-weight-bold" style=" color: rgb(15, 201, 201);" href="/">
+                    <i class="fa fa-heartbeat fa-3x"><br>Dr CARE</i></a>
                 </div>
-                <div class="col-mb-4   ml-5 mr-5 pr-5 ">
-                    <p><i class="fa fa-fax mr-1 fa-1x border border-info p-1"></i>Free Call +1 234 456 78910</p>
-                    <p class="text-secondary">Call Us Now 24/7 Customer Support</p>
+                <div class="col-md-4 col-sm-12 col-lg-4 col-12 pt-4 text-center">
+                    <p><i class="fa fa-fax mr-1 fa-1x border border-info p-1"></i> 24/7 Call +1 234 456 78910</p>
                 </div>
-                <div class="col-mb-4    ml-5 pl-5">
-                    <p><i class="fa fa-location-arrow mr-1 border border-info p-1 " aria-hidden="true"></i>Our Location
-                    </p>
-                    <p class="text-secondary">198 West 21th Street, Suite 721 New York NY 10016</p>
+                <div class="col-md-4 col-sm-12 col-lg-4 col-12 pt-4 text-center">
+                    <p><i class="fa fa-location-arrow mr-1 border border-info p-1 " aria-hidden="true"></i> 198 21th Street, NY 10016</p>
                 </div>
             </div>
         </div>
@@ -79,20 +77,18 @@
     {{else if dr}}
     {{>dr-header}}
 
-    {{else }}
-    {{>other-pages}}
+    
 
     {{/if}}
     {{{body}}}
-    <footer>
+    <footer class="" id="contacts">
         <div class="jumbotron ">
             <div class="container ">
                 <div class="row ">
                     <div class="col-md-3">
-
                         <a class="  font-weight-bold  " style=" color: rgb(15, 201, 201);" href="#"><i
                                 class="fa fa-heartbeat mr-3 fa-2x"></i>Dr CARE</a>
-                        <p class="mt-5 mb-3">You can visit our <br> hospital after booking <br> through this application
+                        <p class="mt-5 mb-3">You can book a visit through <br>these applications
                         </p>
                         <p><i class="fab fa-facebook  mr-1 fa-1x border border-info p-1"></i> <i
                                 class="fab fa-twitter  mr-1 fa-1x border border-info p-1"></i><i
@@ -227,5 +223,12 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 </body>
+
+<style>
+        .bg-info:hover {
+        background-color: rgb(24, 20, 236);
+        color: white;
+    }
+</style>
 
 </html>

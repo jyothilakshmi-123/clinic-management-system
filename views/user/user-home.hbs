@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info text-white text-center">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
             {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a>
             --}}
             <div class="container-fluid">
-                <ul class="nav nav-tabs nav-justified  ">
+                <ul class="nav nav-tabs nav-justified  navbar-nav mr-auto">
                     <li class="nav-item mr-1 active ">
                         <a href="/user-home" class="nav-link bg-info text-white tablinks"
                             onclick="user(event,'MyRequests')" id="defaultOpen" data-toggle="tab">My Requests</a>
@@ -24,40 +24,30 @@
                             onclick="user(event,'Results')" data-toggle="tab">Results</a>
                     </li>
 
+                    <li class="nav-item dropdown  text-dark ">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{#if user}}
+                            {{user.displayName}}
+                            {{/if}}
+
+                        </button>
+                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/">Home</a>
+                            <a class="dropdown-item" href="/logout">Logout</a>
+                        </div>
+                    </li>
+
                 </ul>
             </div>
-            {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul> --}}
-            <div class="dropdown ml-auto  ">
-                <button class="btn btn-secondary dropdown-toggle mr-5 " type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{#if user}}
-                    {{user.displayName}}
-                    {{/if}}
 
-                </button>
-                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="/">Home</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-
-
-                </div>
-            </div>
         </div>
     </nav>
 </header>
 <section>
-    <div class="row ">
-        <div class="col-md-2  ml-5 mb-5 text-center" style="background-color: lightblue; height: 350px;">
+    <div class="row">
+
+        <div class="col-md-2 col-sm-3 text-center" style="background-color: lightblue;">
             {{#if user.imagePresent}}
             <img style="width: 130px;
                             height: 140px;
@@ -67,15 +57,21 @@
                             height: 130px;
                             border-radius: 50%;" class=" mb-3 mt-5  " src="/user-images/default1.jpg" alt="">
             {{/if}}
-            <h4 class="p-2">{{user.displayName}}</h4>
-            <p class="text-dark"><small>{{user.userEmail}}</small></p>
-            <div class="text-center">
-                <a class="btn-info btn-block" style="border-radius: 10px;" href="/edit-user/{{user._id}}">
+            <ul class="  ">
+                <h3 class=" mr-3 ">{{user.displayName}}</h3>
+            </ul>
+            <ul class=" ">
+                <p class="text-dark mr-3 "><small>{{user.userEmail}}</small></p></small>
+            </ul>
+
+            <div class=" ">
+                <a class="btn-info btn-lg text-center ml-4" style="border-radius: 10px;"
+                    href="/edit-user/{{user._id}}">
                     Edit Profile </a>
             </div>
         </div>
 
-        <div class="col-md-9 bg-light border  ml-3 mb-5 " style=" ">
+        <div class="col-md-10 bg-light border  ml-3 mb-5 " style=" ">
             <div class="tabcontent" id="Appointments">
                 <div class="row">
 
@@ -83,15 +79,14 @@
                     <div class="col-md-4 ">
                         <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
                             <div class="card-header ">
-                                        <img class=" float-left rounded-circle  border card-image mr-3 "
-                                            style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg"
-                                            alt="">
-                                        <div class="float-right">
-                                            <h3 class="mt-3 ml-2">{{this.Doctor_Name}}</h3>
-                                            
-                                            <small class="ml-2 ">{{this.Doctor_Speciality}}</small>
-                                        </div>
-                                    </div>
+                                <img class=" float-left rounded-circle  border card-image mr-3 "
+                                    style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg" alt="">
+                                <div class="float-right">
+                                    <h3 class="mt-3 ml-2">{{this.Doctor_Name}}</h3>
+
+                                    <small class="ml-2 ">{{this.Doctor_Speciality}}</small>
+                                </div>
+                            </div>
                             <div class="card-body ">
 
                                 <p>Appointment Date : {{this.dateOfBooking}}</p>
@@ -135,40 +130,26 @@
                     <div class="tab-pane active container" role="tabpanel" id="myPendingRequests">
                         <div class="row">
                             {{#each pendingAppointments}}
-
-
-
-                            <div class="col-md-4 ">
-                                <div class="card border-info  mb-3 mt-4  "
-                                    style="border-radius: 10px; width:max-content;">
+                            <div class="col-md-4 mt-3 mb-5 text-center mr-1">
+                                <div class="card border-info " style="border-radius: 10px;">
                                     <div class="card-header ">
-                                        <img class=" float-left rounded-circle  border card-image mr-3 "
-                                            style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg"
-                                            alt="">
-                                        <div class="float-right">
-                                            <h3 class="mt-3 ml-2">{{this.Doctor_Name}}</h3>
-                                            
-                                            <small class="ml-2 ">{{this.Doctor_Speciality}}</small>
-                                        </div>
+                                        <img class="rounded-circle  mx-auto d-block card-image"
+                                            style="height: 120px; width: 120px;" src="/doctor-images/{{this.dr_id}}.jpg"
+                                            alt="doctor_image">
+                                        <h3 class="text-center mt-4 ">{{this.Doctor_Name}}</h3>
+                                        <small class="ml-2 ">{{this.Doctor_Speciality}}</small>
                                     </div>
                                     <div class="card-body ">
-
                                         <p>Appointment Date : {{this.dateOfBooking}}</p>
                                         <p>Appointment Time : {{this.timeOfBooking}}</p>
                                         <p>Booking For : {{this.displayName}}</p>
-                                        {{!-- <button type="button" class="  mt-3 mb-3 p-2"
-                                            style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
-                                            an Appointment</button> --}}
                                     </div>
-
                                     <div class="card-footer">
                                         <p class="float-left">Pending...</p>
                                         <a class="float-right" href="/make-appointment/{{this.dr_id}}"
                                             onclick="retryAppointments('{{this._id}}')">Retry Booking</a>
                                     </div>
                                 </div>
-
-
                             </div>
                             {{/each}}
                         </div>
@@ -177,25 +158,19 @@
                     <div class="tab-pane container" role="tabpanel" id="myCancelledRequests">
                         <div class="row ">
                             {{#each cancelledAppointments}}
-                            <div class="col-md-4 ">
-                                <div class="card border-info  mb-3 mt-4  "
-                                    style="border-radius: 10px; width:max-content;">
+                            <div class="col-md-4 mt-3 mb-5 text-center mr-1">
+                                <div class="card border-info " style="border-radius: 10px;">
                                     <div class="card-header ">
-                                        <img class=" float-left rounded-circle  border card-image "
-                                            style="height: 80px; width: 80px;" src="/doctor-images/{{this.dr_id}}.jpg"
-                                            alt="">
-                                        <h3 class="float-right mt-4 ml-1">{{this.Doctor_Name}}</h3>
+                                        <img class="rounded-circle  mx-auto d-block card-image"
+                                            style="height: 120px; width: 120px;" src="/doctor-images/{{this.dr_id}}.jpg"
+                                            alt="doctor_image">
+                                        <h3 class="text-center mt-4 ">{{this.Doctor_Name}}</h3>
                                     </div>
                                     <div class="card-body ">
-
                                         <p>Appointment Date : {{this.dateOfBooking}}</p>
                                         <p>Appointment Time : {{this.timeOfBooking}}</p>
                                         <p>Booking For : {{this.displayName}}</p>
-                                        {{!-- <button type="button" class="  mt-3 mb-3 p-2"
-                                            style="background-color:  #3efc8a; color: white;  border-radius: 30px; border: 1px;">Make
-                                            an Appointment</button> --}}
                                     </div>
-
                                     <div class="card-footer">
                                         <p class="float-left">cancelled</p>
                                         <a class="float-right" href="/make-appointment/{{this.dr_id}}"
@@ -211,43 +186,44 @@
             </div>
             <div class="tabcontent" id="Results">
                 <div class="mb-3 mt-3 row">
-
-                    <button class="excel-export ml-auto mr-5" style="color: green;"
+                    <button class="excel-export mx-auto text-center" style="color: green;"
                         onclick="excelExport('{{user._id}}')">
-                        Create Excelsheet
+                        Download data as Excelsheet
                     </button>
                 </div>
+                <div class="container">
 
-                <div class="row">
+                    <div class="row">
 
-                    {{#each prescriptions}}
-                    <div class="col-md-4">
-                        <div class="card border-info  mb-3 mt-4  " style="border-radius: 10px; width:max-content;">
-                            <div class="card-header ">
-                                <img class=" float-left rounded-circle  border card-image "
-                                    style="height: 80px; width: 80px;" src="/doctor-images/{{this.drId}}.jpg" alt="">
-                                <h3 class="float-right mt-4 ml-1">{{this.Doctor_Name}}</h3>
+                        {{#each prescriptions}}
+
+                        <div class="col-md-4 mt-3 mb-5 text-center">
+                            <div class="card border-info " style="border-radius: 10px;">
+                                <div class="card-header ">
+                                    <img class="rounded-circle  mx-auto d-block card-image"
+                                        style="height: 120px; width: 120px;" src="/doctor-images/{{this.drId}}.jpg"
+                                        alt="doctor_image">
+                                    <h3 class="text-center mt-4 ">{{this.Doctor_Name}}</h3>
+                                </div>
+                                <div class="card-body text-left">
+                                    <p> <strong>Date of Appointment : </strong> {{dateOfBooking}}</p>
+                                    <p><strong>Time of Appointment : </strong> {{timeOfBooking}}</p>
+                                    <strong> Medicines : </strong>
+                                    {{#each this.userPrescription}}
+                                    <li class=" ">{{this}}</li>
+                                    {{/each}}
+                                    <br>
+                                    <p><strong>Notes : </strong> {{this.userNotes}}</p>
+                                </div>
+
                             </div>
-                            <div class="card-body ">
-                                <p> <strong>Date of Appointment :</strong> {{dateOfBooking}}</p>
-                                <p><strong>Time of Appointment :</strong> {{timeOfBooking}}</p>
-                                <strong> Medicines :</strong>
-                                {{#each this.userPrescription}}
-                                <li class="ml-5">{{this}}</li>
-                                {{/each}}
-                                <p><strong>Notes :</strong> {{this.userNotes}}</p>
-                            </div>
-
-
-
-
-
                         </div>
+
+
+                        {{/each}}
                     </div>
-                    {{/each}}
+
                 </div>
-
-
             </div>
 
 

@@ -1,57 +1,53 @@
-<header>
-    <nav class="navbar navbar-expand-lg  bg-info">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+<header class="">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info ">
+        <a class="navbar-brand" href="/"> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse ml-5" id="navbarTogglerDemo01">
-            <a class="navbar-brand text-white ml-5" href="#">HOME</a>
-            <a class="navbar-brand text-white ml-2" href="#">ABOUT</a>
-            <a class="navbar-brand text-white ml-2 " href="#">DOCTORS</a>
-            <a class="navbar-brand text-white ml-2" href="#">DEPARTMENTS</a>
-            <a class="navbar-brand text-white ml-2" href="#">GALLERY</a>
-            <a class="navbar-brand text-white ml-2" href="#">BLOG</a>
-            <a class="navbar-brand text-white " href="#">CONTACT</a>
-            {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+        <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">HOME </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#about">ABOUT</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+
+                <li class="nav-item active">
+                    <a class="nav-link disabled" href="#doctors">DOCTORS</a>
                 </li>
-            </ul> --}}
-            <div class="navbar-nav ml-auto">
-
-                <div class="dropdown">
-
-                    <button class="btn btn-white text-dark dropdown-toggle  " type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{#if user}}
-                        {{user.displayName}}
-                        {{else}}
-                        Login
-                        {{/if}}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        {{#if user}}
-                        <a class="dropdown-item " href="/user-home">Profile</a>
-                        <a class="dropdown-item " href="/logout">Logout</a>
-                        {{else}}
-                        <a class="dropdown-item text-success" data-toggle="modal" data-target="#userLogin" href="#">User
-                            Login</a>
-                        <a class="dropdown-item text-success" href="/doctor">Dr Login</a>
-                        {{/if}}
-
-                    </div>
-
+                <li class="nav-item active">
+                    <a class="nav-link disabled" href="#departments">DEPARTMENTS</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link disabled" href="#contacts">CONTACT</a>
+                </li>
+            </ul>
+            <li class="nav-item dropdown btn btn-light text-dark">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    {{#if user}}
+                    {{user.displayName}}
+                    {{else}}
+                    Login
+                    {{/if}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {{#if user}}
+                    <a class="dropdown-item " href="/user-home">Profile</a>
+                    <a class="dropdown-item " href="/logout">Logout</a>
+                    {{else}}
+                    <a class="dropdown-item text-success" data-toggle="modal" data-target="#userLogin" href="#">User
+                        Login</a>
+                    <a class="dropdown-item text-success" href="/doctor">Dr Login</a>
+                    {{/if}}
                 </div>
-                <a class="nav-item nav-link mr-5 text-white " href="/signup">Register</a>
-            </div>
+            </li>
         </div>
     </nav>
+
 </header>
 <section>
     <div class="container">
@@ -67,39 +63,60 @@
 
                             </div>
                             <div class="modal-body text-center  ">
-                                <h2 class="mb-5" style=" color: rgb(15, 201, 201);"><i
+
+                                <h3 class="mb-5" style=" color: rgb(15, 201, 201);"><i
                                         class="fa fa-heartbeat mr-3 fa-2x" style=" color: rgb(15, 201, 201);"></i>Login
-                                    to Dr.CARE</h2>
+                                    to Dr.CARE
+                                </h3>
+
                                 {{#if error}}
                                 <p>{{error}}</p>
                                 {{/if}}
-                                <p>Please enter your phone number (in international format, starting with +) to receive
-                                    a verification code:</p>
-                                <form method="post" action="/phone-login">
-                                    <input type="tel" class="mb-3 mr-4" name="number" />
-                                    <input type="submit" value="Send code" />
-                                </form>
 
-                                {{!-- <a href="/phone-login" class="btn btn-dark text-white mt-3 ">Send OTP</a> --}}
-                                {{!-- <a href="/verify"> verify</a> --}}
-                                <hr>
-                                <p class="text-center">OR</p>
-                                <div class="mb-3">
-                                    <a href="/user-login" class="border p-2 btn-block "
-                                        style="background-color: rgb(12, 12, 134);color: #fff;">Continue with Email</a>
+                                <div class="container-fluid">
+                                    <div class="colLib">
+                                        <h6 class="mb-3">Please enter your phone number receive a verification code:</h6>
+                                        <form method="post" action="/phone-login">
+                                            <input type="tel" class="mb-3 mr-1 " name="number" placeholder="+91xxxxxxxxxx"/>
+                                            <input class ="text-center mr-1 mb-2" type="submit" value="Send code" />
+                                        </form>
+                                    </div>
+                                    <div class="rowLib">
+                                        <h6 style="text-align:center" class="mb-3 mt-1">Login with Registered Email or Social Media</h6>
+
+                                        <div class="colLib">
+                                            <a href="/user-login" class=" btn btn-success manually btnLib"><i
+                                                    class="fa fa-google fa-fw">
+                                                </i>I will continue with Email
+                                            </a>
+                                            <a href="/facebook" class="btn btn-success fb btnLib">
+                                                <i class="fa fa-facebook fa-fw"></i> Login with Facebook
+                                            </a>
+                                            <a href="/google" class=" btn btn-success google btnLib"><i
+                                                    class="fa fa-google fa-fw">
+                                                </i> Login with Google
+                                            </a>
+                                        </div>
+
+                                        <div class="colLib">
+                                            <div class="hide-md-lg">
+
+                                            </div>
+
+                                            {{!-- <input type="text" name="username" placeholder="Username" required>
+                                            <input type="password" name="password" placeholder="Password" required>
+                                            <input type="submit" value="Login"> --}}
+                                        </div>
+
+                                    </div>
                                 </div>
 
-
-
-
-                                <div class=" row ">
-                                    <div class="col">
-                                        <a href="/facebook" class="btn btn-success btn-block "><i
-                                                class="fab fa-facebook mr-3 fa-1x " aria-hidden="true"></i>Facebook</a>
-                                    </div>
-                                    <div class="col">
-                                        <a href="/google" class="btn btn-success btn-block  "><i
-                                                class="fab fa-google mr-3 fa-1x " aria-hidden="true"></i>Google</a>
+                                <div class="bottom-container">
+                                    <div class="rowLib">
+                                        <div class="colLib">
+                                            <a href="/signup" style="color:white; background-color:darkblue" class="btnLib">First time here?
+                                                Sign up</a>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -114,12 +131,12 @@
     </div>
 </section>
 
-<section class="banner">
+<section class="banner" id="about">
     <div class="">
         <div class="container-fluid">
             <div class="row">
                 <div class="header ">
-                    <div class="cointainer float-left p-5 m-5 ">
+                    <div class="cointainer float-left p-5 m-2 col-md-6 col-sm-3 ">
                         <h1>Your Health is Our Top Priority</h1>
                         <p class="mt-5">We’re dedicated to providing the best possible healthcare for the people <br>
                             and helping you access the right services when you need them.</p>
@@ -134,7 +151,7 @@
         </div>
     </div>
 </section>
-<section class="doctors ">
+<section class="doctors " id="doctors">
     <div class="container-fluid bg-light" style="height: auto;">
         <div class=" text-center  my-3 py-5">
             <h1>Our Doctors</h1>
@@ -168,7 +185,7 @@
 
     </div>
 </section>
-<section class="Departments">
+<section class="Departments" id="departments">
     <div class="container-fluid mb-5">
         <div class=" text-center  my-3 py-5">
             <h1>Our Departments</h1>
@@ -222,6 +239,84 @@
 </section>
 
 <style>
+    .btnLib {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        margin: 5px 0;
+        opacity: 0.85;
+        display: inline-block;
+        font-size: 17px;
+        line-height: 20px;
+        text-decoration: none;
+        /* remove underline from anchors */
+    }
+
+    .btnLib:hover {
+        opacity: 1;
+    }
+
+    /* Two-column layout */
+    .colLib {
+        float: left;
+        width: 50%;
+        margin: auto;
+        padding: 0 50px;
+        margin-top: 6px;
+    }
+
+    /* Clear floats after the columns */
+    .rowLib:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    @media screen and (max-width: 650px) {
+        .colLib {
+            width: 100%;
+            margin-top: 0;
+        }
+
+        /* hide the vertical line */
+        .vl {
+            display: none;
+        }
+
+        /* show the hidden text on small screens */
+        .hide-md-lg {
+            display: block;
+            text-align: center;
+        }
+    }
+
+    .fb {
+        background-color: #3B5998;
+        color: white;
+    }
+
+    .manually {
+        background-color: #45a049;
+        color: white;
+    }
+
+    .google {
+        background-color: #dd4b39;
+        color: white;
+    }
+
+    /* style the submit button */
+    input[type=submit] {
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
     .header {
         background-image: url('https://images.pexels.com/photos/5215006/pexels-photo-5215006.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
         background-size: cover;

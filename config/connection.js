@@ -7,8 +7,10 @@ const state =
 }
 
 module.exports.connect = function(done){  
-    const url = 'mongodb://localhost:27017' 
+    
     const dbname = "clinic"
+    // const url = 'mongodb://joadmin:jocms1986@localhost:27017/clinic' 
+    const url = 'mongodb://localhost:27017/clinic' 
 
     mongoClient.connect(url,(err,data)=>{
         if (err) {

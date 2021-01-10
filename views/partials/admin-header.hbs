@@ -1,60 +1,57 @@
 <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-white ">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a> --}}
-                <div class="container-fluid">
-                <ul class="nav nav-tabs nav-justified  ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-info text-white ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
+            {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a>
+            --}}
+            <div class="container-fluid">
+                <ul class="nav nav-tabs nav-justified navbar-nav   ">
                     <li class="nav-item mr-1  active ">
-                        
-                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks " onclick="admin(event,'Dashboard')" id="defaultOpen" data-toggle="tab">Dashboard</a>
+
+                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks "
+                            onclick="admin(event,'Dashboard')" id="defaultOpen" data-toggle="tab">Dashboard</a>
                     </li>
                     <li class="nav-item mr-1 active ">
-                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"onclick="admin(event,'Doctors')" data-toggle="tab">Doctors</a>
+                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"
+                            onclick="admin(event,'Doctors')" data-toggle="tab">Doctors</a>
                     </li>
                     <li class="nav-item mr-1 active ">
-                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"onclick="admin(event,'Users')" data-toggle="tab">Patients</a>
+                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"
+                            onclick="admin(event,'Users')" data-toggle="tab">Patients</a>
                     </li>
                     <li class="nav-item mr-1 active">
-                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"onclick="admin(event,'Appointments')" data-toggle="tab">Appointments</a>
+                        <a href="admin/admin-home" class="nav-link bg-info text-white tablinks"
+                            onclick="admin(event,'Appointments')" data-toggle="tab">Appointments</a>
                     </li>
-                </ul>
-                </div>
-                {{!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul> --}}
-                <div class="dropdown ml-auto  ">
-                    <button class="btn btn-secondary dropdown-toggle mr-5 " type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{#if admin}}
-                            {{admin.Name}}
-                            
-                        {{/if}}
-                        
-                    </button>
-                    <div class="dropdown-menu "  aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">My Profile</a>
-                        {{#if admin}}
+
+
+                    <li class="nav-item dropdown  text-dark ">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="navbarDropdown"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            {{#if admin}}
+                                 {{admin.Name}}
+                            {{/if}}
+
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">My Profile</a>
+                            {{#if admin}}
                             <a class="dropdown-item" href="/admin/logout">Logout</a>
-                        {{else}}
-                           <a class="dropdown-item " href="/admin">Login</a>
-                        {{/if}}
-                        
-                        
-                        
-                    </div>
-                </div>
+                            {{else}}
+                            <a class="dropdown-item " href="/admin">Login</a>
+                            {{/if}}
+                        </div>
+                    </li>
+
+                </ul>
+
             </div>
-        </nav>
-    </header>
+
+
+        </div>
+    </nav>
+</header>
