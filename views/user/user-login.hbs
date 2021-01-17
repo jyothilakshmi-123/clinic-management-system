@@ -1,30 +1,37 @@
 <div class="section">
-    <div class="container mb-5 pb-5 ">
+    <div class="container-fluid pb-5 pt-3 ">
         <div class="col-md-6 m-auto">
-            <form action="/user-login" method="post" class="mt-5">
-                <h2 class="text-center mb-3">Login</h2>
-                <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" placeholder="Enter email" name="userEmail">
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter password" name="userPassword">
-                </div>
-                
-                {{#if error}}
-                <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
-                    {{error }}
-                    <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {{/if}}
+            <form action="/user-login" method="post" class="mt-2">
+                <div class="login p-5" style="border-color: rgb(58, 20, 146);border-style: double;border-radius: 10px;">
+                    <h2 class="text-center mb-3"style=" font-size: x-large;font-family: Georgia, 'Times New Roman', Times, serif;color: rgb(37, 11, 105); font-weight: bold;">Login</h2>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email"
+                            style="border-color: rgb(58, 20, 146);border-style: double;border-radius: 10px;"
+                            class="form-control" placeholder="Enter email" name="userEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password"
+                            style="border-color: rgb(58, 20, 146);border-style: double;border-radius: 10px;"
+                            class="form-control" placeholder="Enter password" name="userPassword">
+                    </div>
 
-                <small class="text-muted ">
-                    Don't have an account? <a href="/signup" class="ml-2">Sign Up</a>
-                </small>
-                <button type="submit" class="btn btn-primary float-right ">Submit</button>
+                    {{#if error}}
+                    <div class="alert alert-danger alert-dismissible fade show p-2" role="alert">
+                        {{error }}
+                        <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{/if}}
+
+                    <p class=" ">
+                        Don't have an account? <a href="/signup" class="ml-2"> Sign Up</a>
+                    </p>
+                    <button type="submit" style=" background-color: rgb(12, 10, 122); border-radius: 10px;"
+                        class="btn btn-primary float-right ">Submit</button>
+                </div>
             </form>
         </div>
     </div>

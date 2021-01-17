@@ -7,7 +7,6 @@ const { response } = require('express')
 
 module.exports = {
     doSignup: (userData) => {
-        console.log(userData)
         return new Promise(async (resolve, reject) => {
             userData.userPassword = await bcrypt.hash(userData.userPassword, 10)
             let userEmail = await db.get().collection(collection.USER_COLLECTION).findOne({ userEmail: userData.userEmail })
@@ -20,7 +19,6 @@ module.exports = {
                 // Validations
 
             } else {
-                console.log("Phone number or Email address is already exixt")
                 response.error = true
                 // re.flash('error', 'Your account is exists. Please log in.');
                 resolve(response, { message: 'Your account is exists. Please log in.' })
@@ -89,12 +87,15 @@ module.exports = {
                     $set: {
                         displayName: userDetails.displayName,
                         userAge: userDetails.userAge,
+                        userEmail: userDetails.userEmail,
                         userMobile: userDetails.userMobile,
-                        userPassword: userDetails.userPassword
+                        userPassword: userDetails.userPassword,
+                        Image:userDetails.Image,
+                        imagePresent:true   
                     }
 
                 }).then((response) => {
-                    resolve()
+                    resolve(response)
                 })
         })
     },
@@ -102,9 +103,6 @@ module.exports = {
         console.log(userId)
         return new Promise(async (resolve, reject) => {
             let Userprescription = await db.get().collection(collection.PRESCRIPTION_COLLECTION).find({ userId: userId.user }).toArray()
-            console.log("Userprescription is.......")
-            console.log(Userprescription)
-            console.log(Userprescription)
             resolve(Userprescription)
         })
     },
@@ -129,7 +127,9 @@ module.exports = {
             let appointment = await db.get().collection(collection.APPOINTMENT_COLLECTION).findOne({ $and: [sameDr, sameDate, sameTime] })
             if (!appointment) {
                 db.get().collection(collection.APPOINTMENT_COLLECTION).insertOne(book).then((data) => {
-                    resolve(data)
+                    console.log("data s......")
+                    console.log(data.ops[0])
+                    resolve(data.ops[0])
                 })
             } else {
                 response.error = true
@@ -142,11 +142,24 @@ module.exports = {
     collectCurrentBookedAppointments: (userId) => {
         return new Promise(async (resolve, reject) => {
             var useridd = { user_id: userId }
-            var canceledAppointments = { Status: "Pending" }
+            var pendingAppointments = { Status: "Pending" }
 
-            let appointmentList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ $and: [useridd, canceledAppointments] }).toArray()
+            let appointmentList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ $and: [useridd, pendingAppointments] }).toArray()
             {
                 resolve(appointmentList)
+            }
+        })
+    },
+    collectPresentAppointment: (appId) => {
+        return new Promise(async (resolve, reject) => {
+            // var appid = { _id: appId }
+            console.log("id ......")
+            console.log(appId)
+            
+            let appointmentDetails = await db.get().collection(collection.APPOINTMENT_COLLECTION).findOne({ _id: objectId(appId) })
+            {
+                console.log(appointmentDetails)
+                resolve(appointmentDetails)
             }
         })
     },
@@ -168,7 +181,9 @@ module.exports = {
             var pendingAppointments = { Status: "Pending" }
 
             let pendingAppointmentsList = await db.get().collection(collection.APPOINTMENT_COLLECTION).find({ $and: [useridd, pendingAppointments] }).toArray()
+
             {
+                console.log(pendingAppointmentsList)
                 resolve(pendingAppointmentsList)
             }
         })
@@ -191,7 +206,7 @@ module.exports = {
                     Status: "Cancelled"
                 }
             }).then((response) => {
-                resolve()
+                resolve(response)
             })
         })
 

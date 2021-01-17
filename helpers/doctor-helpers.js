@@ -120,7 +120,8 @@ module.exports = {
                         Doctor_Specialised: drDetails.Doctor_Specialised,
                         Doctor_Speciality: drDetails.Doctor_Speciality,
                         Doctor_Password: drDetails.Doctor_Password,
-                        Doctor_Email: drDetails.Doctor_Email
+                        Doctor_Email: drDetails.Doctor_Email,
+                        Image:drDetails.Image,
                     }
 
                 }).then((response) => {

@@ -53,14 +53,19 @@ router.post('/user-login', passport.authenticate('local',
     
   }
 );
-router.get('/signup', (req, res) => {
+router.get('/signup', (req, res) => {    
   res.render('user/signup')
 })
 router.post('/signup', (req, res) => {
-  userHelpers.doSignup(req.body).then((response) => {   
-    let image = req.files.Image
+  userHelpers.doSignup(req.body).then((response) => {  
+    let image = req.body.Image
     var id = response._id    
-    image.mv('./public/user-images/' + id + '.jpg', (err, done) => {            
+    const path = './public/user-images/' + id  + '.jpg'
+    const base64Data = image.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+    fs.writeFileSync(path, base64Data, { encoding: 'base64' }, function(err) {
+      console.log(err)
+    });
+          
       if (response.error) {
         var error = response.error
         req.flash('error', 'Your account is exists. Please log in.');      
@@ -76,8 +81,6 @@ router.post('/signup', (req, res) => {
           }
         })
       }
-     
-    })
   })
 })
 
@@ -172,18 +175,18 @@ router.post('/make-appointment', (req, res) => {
       error = 'This time slot is not available now, You can select another time' 
       res.redirect(req.get('referer',{error}));
     } else {
-    res.redirect('/confirmation')
+    res.redirect('/confirmation?appId='+response._id)
     }
   })
 })
 router.get('/confirmation', (req, res) => {
-  userHelpers.collectCurrentBookedAppointments(req.user._id).then((currentAppointments) => {
-    res.render('user/confirmation', { user: req.user })
+  let result = userHelpers.collectPresentAppointment(req.query.appId).then((currentAppointments) => {
+    res.render('user/confirmation', { user: req.user ,currentAppointments})
   })
 })
 router.post('/cancelled-appointments', (req, res, next) => {
-  userHelpers.cancelledAppointments(req.body).then((response) => {
-    res.redirect('/user/user-home')
+  userHelpers.cancelledAppointments(req.body).then((response) => { 
+    res.redirect('/user-home')
   })
 })
 router.get('/edit-user/:id', async (req, res) => {
@@ -192,12 +195,14 @@ router.get('/edit-user/:id', async (req, res) => {
 })
 router.post('/edit-user/:id', (req, res) => {
   let id = req.params.id
-  userHelpers.updateUser(req.params.id, req.body).then(() => {
+  userHelpers.updateUser(req.params.id, req.body).then((response) => {
     res.redirect('/user-home')
-    if (req.files.Image) {
-      let image = req.files.Image
-      image.mv('./public/user-images/' + id + '.jpg')
-    }
+    let image = req.body.Image  
+    const path = './public/user-images/' + id  + '.jpg'
+    const base64Data = image.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+    fs.writeFileSync(path, base64Data, { encoding: 'base64' }, function(err) {
+      console.log(err)
+    });
   })
 })
 router.post('/export-to-excel', (req, res, next) => {

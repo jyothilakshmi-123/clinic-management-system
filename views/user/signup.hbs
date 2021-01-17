@@ -1,64 +1,114 @@
-<div class="section">
-    <div class="container mb-5">
-        <div class="col-md-6 m-auto">
-            <h2 class="text-center">Create new Account</h2>
-            <form action="/signup" method="post" class="mt-5 pl-5" enctype="multipart/form-data">
+<div id="uploadimageModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close  text-center" data-dismiss="modal">&times;</button>
 
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="displayName" required>
-                </div>
-                <div class="form-group">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" name="userAge" required>
-                </div>
-                <label for="gender" class="mr-3" >Select Gender</label>
-                <div class="form-check-inline">
-                    
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="userGender" value="Male">Male
-                    </label>
-                </div>
-                <div class="form-check-inline">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="userGender" value="Female">Female
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="text" class="form-control" name="userMobile" required>
-                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 text-center">
+                        <h4 class="modal-title text-center">Crop Image</h4>
+                        <div id="image_demo" style="width:350px; margin-top:30px"></div>
+                    </div>
+                    <div class="col-md-4 mr-3 text-center">
 
-
-                <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input type="email" class="form-control" placeholder="Enter email" name="userEmail" value=""
-                        required>
+                        <button class="btn btn-success crop_image float-center ">Crop Image</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input type="password" class="form-control" placeholder="Enter password" name="userPassword"
-                        required>
-                </div>
-
-                <small class="text-muted float-right">
-                    Already have an account? <a href="/user-login" class="ml-2">Login</a>
-                </small>
-                <input type="hidden" id="Status" name="Status" value="Active">
-                <input type="hidden" id="imagePresent" name="imagePresent" value="true">
-
-                <div class="form-group">
-                    <label for="">Image</label>
-                    <input type="file" name="Image"  id="upphoto"  class="form-control-file" required>
-
-                </div>
-                <div class=" pb-5">
-                    <button type="submit" class="btn btn-primary float-right ">Submit</button>
-                </div>
-
-
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
+<div class="section">
+    <div class="container-fluid " style="background-color: rgb(241, 253, 253);">
+        <div class="col-md-6 m-auto pb-5 pt-4 ">
+
+            <form action="/signup" method="post" class="mt-5 pl-5" enctype="multipart/form-data">
+                <div class="login p-5"
+                    style="border-color: rgb(58, 20, 146);background-color: rgb(247, 252, 253); border-style: double;border-radius: 10px; color: rgb(24, 22, 13);">
+                    <h2 class="text-center pt-3"
+                        style=" color: rgb(24, 14, 117); font-size: x-large;font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+                        Create new Account</h2>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="displayName"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" style="border-radius: 10px;" class="form-control" name="userAge" required>
+                    </div>
+                    <label for="gender" class="mr-3">Select Gender</label>
+                    <div class="form-check-inline">
+
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="userGender" value="Male">Male
+                        </label>
+                    </div>
+                    <div class="form-check-inline">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="userGender" value="Female">Female
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="userMobile" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" style="border-radius: 10px;" class="form-control" placeholder="Enter email"
+                            name="userEmail" value="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" style="border-radius: 10px;" class="form-control"
+                            placeholder="Enter password" name="userPassword" required>
+                    </div>
+
+                    <p class=" float-right">
+                        Already have an account? <a href="/user-login" class="ml-2"
+                            style="color: rgb(218, 44, 224);">Login</a>
+                    </p>
+                    <input type="hidden" id="Status" name="Status" value="Active">
+                    <input type="hidden" id="imagePresent" name="imagePresent" value="true">
+
+                    <div class="form-group">
+                        {{!-- <label for="">Image</label>
+                        <input type="file" name="Image" id="upphoto" class="form-control-file" required> --}}
+                        <div class="panel ">
+                            <div class="panel-heading">Image</div>
+                            <div class="panel-body">
+                                <input type="file" name="Image" id="Image" />
+                                <br />
+                                <div id="uploaded_image"></div>
+                            </div>
+                            <img src="#" class="displayImg mt-3" id="uploaded_image" name="Image" alt="">
+                            <input type="text" class="form-control image-label"
+                                style="visibility: hidden; position:absolute;" name="Image" style="">
+                        </div>
+
+                    </div>
+
+
+
+                    <div class=" pb-5">
+                        <button type="submit" style=" background-color: rgb(12, 10, 122); border-radius: 10px;"
+                            class="btn btn-primary float-right ">Submit</button>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+

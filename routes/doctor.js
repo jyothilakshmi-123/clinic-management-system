@@ -120,10 +120,12 @@ router.post('/edit-doctor/:id', (req, res) => {
   let id = req.params.id
   doctorHelpers.updateDoctor(req.params.id, req.body).then(() => {
     res.redirect('/doctor/doctor-home')
-    if (req.files.Image) {
-      let image = req.files.Image
-      image.mv('./public/doctor-images/' + id + '.jpg')
-    }
+    let image = req.body.Image  
+    const path = './public/doctor-images/' + id  + '.jpg'
+    const base64Data = image.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+    fs.writeFileSync(path, base64Data, { encoding: 'base64' }, function(err) {
+      console.log(err)  
+    });
   })
 })
 

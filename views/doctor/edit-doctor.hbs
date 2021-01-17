@@ -1,44 +1,89 @@
+<div id="uploadimageModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close  text-center" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 text-center">
+                        <h4 class="modal-title text-center">Crop Image</h4>
+                        <div id="image_demo" style="width:350px; margin-top:30px"></div>
+                    </div>
+                    <div class="col-md-4 mr-3 text-center">
+
+                        <button class="btn btn-success crop_image float-center ">Crop Image</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="section">
-    <div class="container">
+    <div class="container-fluid" >
         <div class="row">
             <div class="col-md-6 m-auto">
-                <h2 class="text-center mt-3">Update Doctor</h2>
-                <form class="mb-5 mt-3" action="/doctor/edit-doctor/{{doctor._id}}" method="POST" enctype="multipart/form-data">
 
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" name="Doctor_Name" value="{{doctor.Doctor_Name}}">
+                <form class="mb-5 mt-5" action="/doctor/edit-doctor/{{doctor._id}}" method="POST"
+                    enctype="multipart/form-data">
+                    <div class="login p-5"
+                        style="border-color: rgb(58, 20, 146);background-color: rgb(247, 252, 253); border-style: double;border-radius: 10px; color: rgb(24, 22, 13);">
+                        <h2 class="text-center mt-3 "
+                            style="color: rgb(119, 15, 119); font-size: x-large;font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+                            EDIT PROFILE</h2>
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="Doctor_Name"
+                            value="{{doctor.Doctor_Name}}">
+                        <label for="exampleInputPassword1">Specilised</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="Doctor_Specialised"
+                            value="{{doctor.Doctor_Specialised}}">
+                        <label for="exampleInputPassword1">Speciality</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="Doctor_Speciality"
+                            value="{{doctor.Doctor_Speciality}}">
+                        <label for="email">Email</label>
+                        <input type="email" style="border-radius: 10px;" class="form-control" name="Doctor_Email"
+                            value="{{doctor.Doctor_Email}}">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" style="border-radius: 10px;" class="form-control" name="Doctor_Password"
+                            placeholder="****" required>
+                        {{!-- <div class="form-group ">
+                            <label for="">Image</label>
+                            <img src="/doctor-images/{{doctor._id}}.jpg" id="imgView" class="mt-3 mb-3"
+                                style="width: 50px;height:auto" alt="">
+                            <input type="file" name="Image" class="form-control-file" onchange="viewImage(event)">
+                            
+                        </div> --}}
+                        <div class="form-group">
+                            <div class="panel ">
+                                <div class="panel-heading">Image</div>
+                                <div class="panel-body">
+                                    <img src="/doctor-images/{{doctor._id}}.jpg" id="imgView" class="mt-3 mb-3 displayImg"
+                                        style="width: 100px;height:100px" alt="user-image"><br>
+                                    <input type="file" name="Image" id="Image" onchange="viewImage(event)" required/>
+                
+                                    <br />
+                                </div>
+                                <input type="text" class="form-control image-label"
+                                    style="visibility: hidden; position:absolute;" name="Image" style="">
+                            </div>
+                            <button type="submit" 
+                                class="btn btn-success float-right mb-4 " style=" background-color: rgb(12, 10, 122); border-radius: 10px;">Submit</button>
 
+                        </div>
 
-
-                    <label for="exampleInputPassword1">Specilised</label>
-                    <input type="text" class="form-control" name="Doctor_Specialised" value="{{doctor.Doctor_Specialised}}">
-
-
-                    <label for="exampleInputPassword1">Speciality</label>
-                    <input type="text" class="form-control" name="Doctor_Speciality"value="{{doctor.Doctor_Speciality}}">
-
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" name="Doctor_Email" value="{{doctor.Doctor_Email}}">
-
-
-
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" name="Doctor_Password" placeholder="****">
-
-                    <div class="form-group">
-                        <label for="">Image</label>
-                        <img src="/doctor-images/{{doctor._id}}.jpg" id="imgView" class="mt-3 mb-3" style="width: 50px;height:auto" alt="">
-                        <input type="file" name="Image" class="form-control-file" onchange="viewImage(event)" >
+                        <input type="hidden" id="Status" name="Status" value="Active">
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <input type="hidden" id="Status" name="Status" value="Active">
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-   function viewImage(event){
-       document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
-   }
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
 </script>

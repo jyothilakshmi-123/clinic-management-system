@@ -1,40 +1,93 @@
-<div class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 m-auto">
-                <h2 class="text-center mt-3">Update User</h2>
-                <form class="mb-5 mt-3" action="/edit-user/{{user._id}}" method="POST" enctype="multipart/form-data">
+<div id="uploadimageModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close  text-center" data-dismiss="modal">&times;</button>
 
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" class="form-control" name="displayName" value="{{user.displayName}}">
-
-
-
-                    <label for="exampleInputPassword1">Age</label>
-                    <input type="number" class="form-control" name="userAge" value="{{user.userAge}}">
-
-
-                    <label for="exampleInputPassword1">Mobile Number</label>
-                    <input type="text" class="form-control" name="userMobile"value="{{user.userMobile}}">
-
-
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" name="userPassword" placeholder="****">
-
-                    <div class="form-group">
-                        <label for="">Image</label>
-                        <img src="/user-images/{{user._id}}.jpg" id="imgView" class="mt-3 mb-3" style="width: 50px;height:auto" alt="">
-                        <input type="file" name="Image" class="form-control-file" onchange="viewImage(event)" >
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 text-center">
+                        <h4 class="modal-title text-center">Crop Image</h4>
+                        <div id="image_demo" style="width:350px; margin-top:30px"></div>
                     </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                    <input type="hidden" id="Status" name="Status" value="Active">
-                </form>
+                    <div class="col-md-4 mr-3 text-center">
+
+                        <button class="btn btn-success crop_image float-center ">Crop Image</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<script>
-   function viewImage(event){
-       document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
-   }
-</script>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+
+                <div class="login p-5 mb-5"
+                    style="border-color: rgb(58, 20, 146);background-color: rgb(247, 252, 253); border-style: double;border-radius: 10px; color: rgb(24, 22, 13);">
+                    <h2 class="text-center mt-3"
+                        style="color: rgb(119, 15, 119); font-size: x-large;font-family: 'Courier New', Courier, monospace; font-weight: bold;">
+                        Edit Profile</h2>
+                    <form class="mb-5 mt-3" action="/edit-user/{{user._id}}" method="POST"
+                        enctype="multipart/form-data">
+
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="displayName"
+                            value="{{user.displayName}}">
+
+
+
+                        <label for="exampleInputPassword1">Age</label>
+                        <input type="number" style="border-radius: 10px;" class="form-control" name="userAge"
+                            value="{{user.userAge}}">
+
+
+                        <label for="exampleInputPassword1">Mobile Number</label>
+                        <input type="text" style="border-radius: 10px;" class="form-control" name="userMobile"
+                            value="{{user.userMobile}}">
+
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" style="border-radius: 10px;" class="form-control" name="userEmail"
+                                value="{{user.userEmail}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" style="border-radius: 10px;" class="form-control" name="userPassword"
+                                placeholder="****" required>
+                        </div>
+                        <input type="hidden" id="imagePresent" name="imagePresent" value="true">
+                        <div class="form-group">
+                            <div class="panel ">
+                                <div class="panel-heading">Image</div>
+                                <div class="panel-body">
+                                    <img src="/user-images/{{user._id}}.jpg" id="imgView" class="mt-3 mb-3 displayImg"
+                                        style="width: 100px;height:100px" alt="user-image"><br>
+                                    <input type="file" name="Image" id="Image" onchange="viewImage(event)" />
+                                    <br />
+                                </div>
+                                <input type="text" class="form-control image-label"
+                                    style="visibility: hidden; position:absolute;" name="Image" style="">
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-success float-right mb-4 "
+                            style=" background-color: rgb(12, 10, 122); border-radius: 10px;">Submit</button>
+                        <input type="hidden" id="Status" name="Status" value="Active">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function viewImage(event) {
+            document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+        }
+    </script>
+    

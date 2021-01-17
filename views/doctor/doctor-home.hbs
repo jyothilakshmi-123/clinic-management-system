@@ -1,4 +1,4 @@
-<header>
+<header >
     <nav class="navbar navbar-expand-lg navbar-light bg-info text-white">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
             aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,7 +8,7 @@
             {{!-- <a class="navbar-brand  font-weight-bold text-white bg-success" data-toggle="tab" href="#">Doctor</a>
             --}}
             <div class="container-fluid">
-                <ul class="nav nav-tabs nav-justified navbar-nav ">
+                <ul class="nav nav-justified navbar-nav ">
 
                     <li class="nav-item mr-1 active ">
                         <a href="doctor/doctor-home" class="nav-link bg-info text-white tablinks"
@@ -186,8 +186,8 @@
 
         <div class="col-md-2 col-sm-3 text-center" style="background-color: lightblue;">
             <img style="width: 130px; height: 140px; border-radius: 50%;" class="mb-3 mt-5"
-                    src="/doctor-images/{{doctor._id}}.jpg" alt="doctor_image">
-        
+                src="/doctor-images/{{doctor._id}}.jpg" alt="doctor_image">
+
             <ul class=" ">
                 <h3 class="mr-3">{{doctor.Doctor_Name}}</h3>
             </ul>
@@ -195,8 +195,8 @@
                 <p class="text-dark mr-3 "><small>{{doctor.Doctor_Email}}</small></p>
             </ul>
 
-            <div class=" ">
-                <a class="btn-info btn-sm text-center ml-4 pt- 5" style=" border-radius: 10px; "
+            <div class="pb-4 ">
+                <a class="btn-info btn-sm text-center ml-4 p-2 " style=" border-radius: 10px; "
                     href="/doctor/edit-doctor/{{doctor._id}}">Edit Profile</a>
             </div>
 
@@ -206,7 +206,7 @@
         <div class="col-md-10 col-sm-3   bg-light " style=" ">
 
             <div class="tabcontent" id="Appointments">
-                <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs nav-justified pt-2">
                     <li class="nav-item">
                         <a href="#Today" class=" nav-link active  mr-4" role="tab" data-toggle="tab">Today</a>
                     </li>
@@ -222,8 +222,16 @@
                     <li class="nav-item">
                         <a href="#Expired" class="nav-link   " role="tab" data-toggle="tab">Expired</a>
                     </li>
-                    <form class="form-inline p-3 ml-auto">
-                        <input type="text" name="search1" id="search1" class="form-control" />
+                    {{!-- <form class="form-inline ml-auto mr-2 pb-2">
+                        <input type="text" name="search1" id="search1" class="form-control"
+                            style="border-color: blue; border-radius: 10px;" />
+                    </form> --}}
+                    <form
+                        class="form-inline d-flex justify-content-center md-form form-sm active-purple active-purple-2 ml-auto mr-2 pb-2">
+                        <input class="form-control form-control-sm ml-3 w-75" type="text"
+                            placeholder="I am looking for.." aria-label="Search" name="search1" id="search1"
+                            style="color: #e22ba5; border-color:  rgb(43, 226, 125); border-radius: 10px;">
+                        <i class="fas fa-search ml-2 mr-3 " style="color:rgb(43, 226, 125) ;" aria-hidden="true"></i>
                     </form>
                 </ul>
 
@@ -272,6 +280,7 @@
 
                                     {{!-- <th scope="col">Price</th> --}}
                                     <th scope="col">Action</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -282,14 +291,13 @@
                                             src="/user-images/{{this.user_id}}.jpg" alt="">{{this.displayName}}</td>
                                     <td>{{this.dateOfBooking}}</td>
                                     <td>{{this.userMobile}}</td>
-                                    <td><a href="" style="color: green;" data-toggle="modal"
-                                            data-target="#consult-form">Consult</a>
+                                    <td>
                                         <a href="" style="color: green;" class="ml-2"
                                             onclick="appointmentCancel('{{this._id}}')">Reject</a>
                                     </td>
 
                                     <td>
-                                        <p style="color:blue;">Current Status: {{this.Status}}</p>
+                                        <p style="color:blue;">{{this.Status}}</p>
                                     </td>
                                 </tr>
 
@@ -388,18 +396,25 @@
 
 
             <div class="tabcontent" id="Bookings">
-                <form class="form-inline p-3 ml-auto">
-                    <input type="text" name="search2" id="search2" class="form-control ml-auto" />
+                <div class="row ">
+                    
+                    <form class="form-inline  m-3 p-3  ml-auto float-right ">
+                       
+                        <input class="form-control ml-3  " type="text" placeholder="I am looking for.."
+                            aria-label="Search" name="search1" id="search1"
+                            style="color: #200919; border-color:  rgb(43, 226, 125); border-radius: 10px;">
+                        
+                    </form>
 
-                </form>
-                <table class="table mt-4  border p-3 mb-5">
+                </div>
+
+
+                <table class="table mt-4  border p-5 mb-5">
                     <thead>
                         <tr>
                             <th scope="col">Patient Name</th>
                             <th scope="col">Appointment Date</th>
                             <th scope="col">Mobile Number</th>
-
-                            {{!-- <th scope="col">Price</th> --}}
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -413,10 +428,11 @@
                             <td>{{this.dateOfBooking}}</td>
                             <td>{{this.userMobile}}</td>
 
-                            <td><a href="" style="color: green;" class="mr-3"
-                                    onclick="appointmentConfirm('{{this._id}}')">Accept</a><br>
+                            <td><a href="" style="color: green;" class="mr-2"
+                                    onclick="appointmentConfirm('{{this._id}}')">Accept</a>
                                 <a href="" style="color: red;" onclick="appointmentCancel('{{this._id}}')">Reject</a>
                             </td>
+
 
 
                             {{!-- <td><a href="/doctor/consult-form" style="color: rgb(79, 228, 79);">Consult</a>
@@ -435,8 +451,8 @@
 
                     {{#each myPatients}}
 
-                    <div class="col-md-4 mt-3 mb-5 mx-auto text-center">
-                        <div class="card border-info " style="border-radius: 10px;">
+                    <div class="col-md-4 p-5 mt-3 mb-5 mx-auto text-center">
+                        <div class="card border-info " style="border-radius: 20px;">
                             <div class="card-header ">
                                 <img class="rounded-circle  mx-auto d-block card-image"
                                     style="height: 120px; width: 120px;" src="/user-images/{{this.user_id}}.jpg"
@@ -459,7 +475,6 @@
 
             </div>
             <div class="tabcontent" id="Results">
-
                 <div class="mb-3 mt-3 row">
                     <button class="excel-export mx-auto text-center" style="color: green;"
                         onclick="excelExport('{{doctor._id}}')">
@@ -507,6 +522,8 @@
 
     </div>
 </section>
+
+
 <script>
     window.onload = function () {
         startTab();

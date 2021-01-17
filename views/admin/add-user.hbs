@@ -1,51 +1,57 @@
 <div class="section">
-    <div class="container">
+    <div class="container-fluid" style="background-color: rgb(241, 253, 253);">
         <div class="row">
-            <div class="col-md-6 m-auto ">
-                <h2 class="text-center mt-3">Add Patient</h2>
-                <form class="mb-5 mt-3" action="/admin/add-user" method="POST" enctype="multipart/form-data">
+            <div class="col-md-6 m-auto   ">
+                <div class="login p-5 mb-5 mt-5"
+                    style="border-color: rgb(58, 20, 146);background-color: rgb(247, 252, 253); border-style: double;border-radius: 10px; color: rgb(24, 22, 13);">
+                    <h2 class="text-center mt-3" style=" font-family: Georgia, 'Times New Roman', Times, serif; color: rgb(24, 14, 117); font-size: x-large;  font-weight: bold;">Add Patient</h2>
+                    <form class="mb-5 mt-3" action="/admin/add-user" method="POST" enctype="multipart/form-data">
 
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="displayName">
-
-
-
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control" name="userAge">
+                        <label for="name">Name</label>
+                        <input type="text" style="border-radius: 10px;"placeholder="Enter Name" class="form-control" name="displayName">
 
 
-                    <label for="mobile">Mobile Number</label>
-                    <input type="text" class="form-control" name="userMobile">
-                    <label for="gender" class="mr-3">Select Gender</label>
-                    <div class="form-check-inline">
 
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="userGender"value="Male">Male
-                        </label>
-                    </div>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="userGender"value="Female">Female
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email address:</label>
-                        <input type="email" class="form-control" placeholder="Enter email" name="userEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required>
-                    </div>
+                        <label for="age">Age</label>
+                        <input type="number" style="border-radius: 10px;" placeholder="Enter Age" class="form-control" name="userAge">
 
-                    <div class="form-group">
-                        <label for="">Image</label>
-                        <input type="file" name="Image" id="upphoto" class="form-control-file">
 
-                    </div>
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" style="border-radius: 10px;"placeholder="Enter Phone Number" class="form-control" name="userMobile">
+                        <label for="gender" class="mr-3">Select Gender</label>
+                        <div class="form-check-inline">
 
-                    <button type="submit" class="btn btn-success mt-3">Submit</button>
-                    <input type="hidden" id="Status" name="Status" value="Active">
-                </form>
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="userGender" value="Male">Male
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="userGender" value="Female">Female
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" style="border-radius: 10px;" class="form-control"
+                                placeholder="Enter email" name="userEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" style="border-radius: 10px;" class="form-control"
+                                placeholder="Enter password" name="userPassword" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="">Image</label>
+                            <input type="file" name="Image" id="upphoto" class="form-control-file">
+
+                        </div>
+
+                        <button type="submit" style=" background-color: rgb(12, 10, 122); border-radius: 10px;"
+                            class="btn btn-success mb-4 float-right">Submit</button>
+                        <input type="hidden" id="Status" name="Status" value="Active">
+                    </form>
+                </div>
             </div>
 
         </div>

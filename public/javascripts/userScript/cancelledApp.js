@@ -8,6 +8,8 @@ function canceledAppointments(appointmentId) {
             },
             method: 'post',
             success: (response) => {
+                console.log("response after cancelled ........")
+                console.log(response)
 
                 window.location.reload()
             }
